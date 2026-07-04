@@ -1,0 +1,211 @@
+{
+  "admin": {
+    "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"
+  },
+  "profile": {
+    "siteTitle": "Privacy Luiza Avila",
+    "logo": "/uploads/seed/logoBarra.webp",
+    "banner": "/uploads/seed/banner.webp",
+    "avatar": "/uploads/seed/avatar.webp",
+    "verifiedIcon": "/uploads/seed/verified.webp",
+    "name": "Luiza Avila",
+    "handle": "@luiza_avilah",
+    "bio": "Oi, amores! Estou super animada por comecar essa jornada incrivel com voces no meu Privacy!\nConteudos exclusivos, videos que ja gravei com algumas amigas, ex-namorados e ate minha rotina durante o banho.\nTe espero aqui!",
+    "location": "Sorocaba, Sao Paulo",
+    "instagram": "https://www.instagram.com/luiza_avilah/",
+    "threads": "https://www.threads.net/@luiza_avilah",
+    "liveStart": "07:19",
+    "stats": {
+      "likes": "503",
+      "followers": "320",
+      "comments": "32",
+      "views": "86k",
+      "posts": "594",
+      "media": "647"
+    },
+    "legalNotice": "Todo e qualquer conteudo publicado neste perfil (fotos, videos, audios, textos e demais materiais) e propriedade exclusiva do produtor, nos termos da Lei 9.610/98 (Direitos Autorais).",
+    "benefits": [
+      "Acesso ao conteudo exclusivo",
+      "Chat exclusivo comigo",
+      "Cancele a qualquer hora",
+      "Sua chance de ter acesso a mim e me conhecer de verdade"
+    ]
+  },
+  "plans": [
+    {
+      "id": "one",
+      "name": "1 mes de acesso",
+      "price": 29.9,
+      "oldPrice": "",
+      "discount": "",
+      "durationDays": 30,
+      "featured": false,
+      "active": true
+    },
+    {
+      "id": "three",
+      "name": "3 meses de acesso",
+      "price": 45.9,
+      "oldPrice": 89.9,
+      "discount": "50% OFF",
+      "durationDays": 90,
+      "featured": false,
+      "active": true
+    },
+    {
+      "id": "lifetime",
+      "name": "ACESSO VITALICIO",
+      "price": 54.9,
+      "oldPrice": 299.5,
+      "discount": "80% OFF",
+      "durationDays": 0,
+      "featured": true,
+      "active": true
+    }
+  ],
+  "gallery": [
+    {
+      "id": "preview",
+      "type": "preview",
+      "category": "all photos",
+      "src": "/uploads/seed/preview.webp",
+      "title": "Preview bloqueado"
+    },
+    {
+      "id": "top1",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-top-01-thumb.webp",
+      "title": "Previa exclusiva 1"
+    },
+    {
+      "id": "top2",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-top-02-thumb.webp",
+      "title": "Previa exclusiva 2"
+    },
+    {
+      "id": "top3",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-top-03-thumb.webp",
+      "title": "Previa exclusiva 3"
+    },
+    {
+      "id": "top4",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-top-04-thumb.webp",
+      "title": "Previa exclusiva 4"
+    },
+    {
+      "id": "photo1",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-photo-1-thumb.webp",
+      "title": "Foto exclusiva 1"
+    },
+    {
+      "id": "photo2",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-photo-2-thumb.webp",
+      "title": "Foto exclusiva 2"
+    },
+    {
+      "id": "for1",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-1-thumb.webp",
+      "title": "Para voce especial 1"
+    },
+    {
+      "id": "for2",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-2-thumb.webp",
+      "title": "Para voce especial 2"
+    },
+    {
+      "id": "for3",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-3-thumb.webp",
+      "title": "Para voce especial 3"
+    },
+    {
+      "id": "video1",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-1-thumb.webp",
+      "title": "Video exclusivo 1"
+    },
+    {
+      "id": "video2",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-2-thumb.webp",
+      "title": "Video exclusivo 2"
+    },
+    {
+      "id": "video3",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-3-thumb.webp",
+      "title": "Video exclusivo 3"
+    },
+    {
+      "id": "video4",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-4-thumb.webp",
+      "title": "Video exclusivo 4"
+    }
+  ],
+  "checkout": {
+    "headline": "Tenha acesso a tudo isso:",
+    "accountTitle": "Crie sua conta para acessar",
+    "buttonText": "Gerar PIX",
+    "processingText": "Estamos preparando seu acesso VIP seguro.",
+    "successTitle": "PAGAMENTO CONFIRMADO",
+    "successText": "Seu acesso foi liberado. Veja todo o conteudo aqui no site.",
+    "pushinPayNotice": "A PUSHIN PAY atua exclusivamente como processadora de pagamentos e nao possui qualquer responsabilidade pela entrega, suporte, conteudo, qualidade ou cumprimento das obrigacoes relacionadas aos produtos ou servicos oferecidos pelo vendedor."
+  },
+  "payments": {
+    "gatewayOrder": [
+      "sync",
+      "pushinpay",
+      "atomopay",
+      "bravopay"
+    ],
+    "gateways": {
+      "sync": {
+        "enabled": true,
+        "autoApproveSeconds": 0
+      },
+      "pushinpay": {
+        "enabled": false,
+        "environment": "production",
+        "token": "",
+        "webhookUrl": ""
+      },
+      "atomopay": {
+        "enabled": false,
+        "apiToken": "",
+        "offerHash": "",
+        "productHash": "",
+        "postbackUrl": ""
+      },
+      "bravopay": {
+        "enabled": false,
+        "apiKey": "",
+        "webhookSecret": "",
+        "baseUrl": "https://bravopay.club/api/v1"
+      }
+    },
+    "metrics": {}
+  },
+  "leads": [],
+  "transactions": []
+}

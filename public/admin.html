@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel Admin</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="admin-page">
+  <main id="loginView" class="admin-login">
+    <form id="loginForm" class="login-card">
+      <h1>Painel Admin</h1>
+      <p>Gerencie perfil, imagens, planos, galeria, gateways e vendas.</p>
+      <input id="adminPassword" type="password" placeholder="Senha do admin" autocomplete="current-password">
+      <button class="primary-button" type="submit">Entrar</button>
+      <small>Senha inicial: admin123</small>
+    </form>
+  </main>
+
+  <main id="adminApp" class="admin-shell hidden">
+    <aside class="admin-sidebar">
+      <div>
+        <strong>Privacy Admin</strong>
+        <span id="adminModelName">Modelo</span>
+      </div>
+      <nav>
+        <button class="admin-nav active" data-section="profile" type="button">Perfil</button>
+        <button class="admin-nav" data-section="plans" type="button">Planos</button>
+        <button class="admin-nav" data-section="gallery" type="button">Galeria</button>
+        <button class="admin-nav" data-section="gateways" type="button">Gateways</button>
+        <button class="admin-nav" data-section="leads" type="button">Leads</button>
+        <button class="admin-nav" data-section="sales" type="button">Vendas</button>
+      </nav>
+      <button id="logout" class="secondary-button" type="button">Sair</button>
+    </aside>
+
+    <section class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h1 id="sectionTitle">Perfil</h1>
+          <p>Edite tudo sem mexer em codigo.</p>
+        </div>
+        <div class="admin-actions">
+          <a class="secondary-button" href="/" target="_blank">Ver site</a>
+          <button id="saveAll" class="primary-button" type="button">Salvar alteracoes</button>
+        </div>
+      </header>
+
+      <section id="section-profile" class="admin-section active">
+        <div class="admin-grid two">
+          <label>Nome da modelo<input data-bind="profile.name" type="text"></label>
+          <label>Usuario/arroba<input data-bind="profile.handle" type="text"></label>
+          <label>Titulo do site<input data-bind="profile.siteTitle" type="text"></label>
+          <label>Localizacao<input data-bind="profile.location" type="text"></label>
+          <label>Instagram<input data-bind="profile.instagram" type="url"></label>
+          <label>Threads<input data-bind="profile.threads" type="url"></label>
+          <label>Tempo ao vivo inicial<input data-bind="profile.liveStart" type="text"></label>
+          <label>Logo<input data-bind="profile.logo" type="text"><button class="mini-upload" data-upload-target="profile.logo" type="button">Enviar imagem</button></label>
+          <label>Banner<input data-bind="profile.banner" type="text"><button class="mini-upload" data-upload-target="profile.banner" type="button">Enviar imagem</button></label>
+          <label>Avatar<input data-bind="profile.avatar" type="text"><button class="mini-upload" data-upload-target="profile.avatar" type="button">Enviar imagem</button></label>
+          <label>Icone verificado<input data-bind="profile.verifiedIcon" type="text"><button class="mini-upload" data-upload-target="profile.verifiedIcon" type="button">Enviar imagem</button></label>
+        </div>
+        <label>Bio<textarea data-bind="profile.bio" rows="5"></textarea></label>
+        <label>Aviso legal<textarea data-bind="profile.legalNotice" rows="4"></textarea></label>
+        <div class="password-box">
+          <label>Nova senha do admin<input id="newAdminPassword" type="password" placeholder="Minimo 8 caracteres" autocomplete="new-password"></label>
+          <button id="changePassword" class="secondary-button" type="button">Atualizar senha</button>
+        </div>
+        <div class="admin-grid four">
+          <label>Curtidas<input data-bind="profile.stats.likes" type="text"></label>
+          <label>Seguidores<input data-bind="profile.stats.followers" type="text"></label>
+          <label>Comentarios<input data-bind="profile.stats.comments" type="text"></label>
+          <label>Views<input data-bind="profile.stats.views" type="text"></label>
+          <label>Postagens<input data-bind="profile.stats.posts" type="text"></label>
+          <label>Midias<input data-bind="profile.stats.media" type="text"></label>
+        </div>
+        <h2>Beneficios do checkout</h2>
+        <div id="benefitsEditor" class="editor-list"></div>
+        <button id="addBenefit" class="secondary-button" type="button">Adicionar beneficio</button>
+      </section>
+
+      <section id="section-plans" class="admin-section">
+        <div id="plansEditor" class="editor-list"></div>
+        <button id="addPlan" class="secondary-button" type="button">Adicionar plano</button>
+      </section>
+
+      <section id="section-gallery" class="admin-section">
+        <div id="galleryEditor" class="editor-list"></div>
+        <button id="addMedia" class="secondary-button" type="button">Adicionar midia</button>
+      </section>
+
+      <section id="section-gateways" class="admin-section">
+        <div class="gateway-toolbar">
+          <label>Ordem de fallback<input id="gatewayOrder" type="text" placeholder="sync,pushinpay,atomopay,bravopay"></label>
+          <label>Valor do teste<input id="gatewayTestAmount" type="number" min="1" step="0.01" value="1.00"></label>
+          <button id="testGateways" class="secondary-button" type="button">Testar gateways</button>
+        </div>
+        <div id="gatewayEditor" class="gateway-grid"></div>
+        <pre id="gatewayTestResult" class="test-result"></pre>
+      </section>
+
+      <section id="section-leads" class="admin-section">
+        <div id="leadMetricCards" class="metric-grid"></div>
+        <div class="gateway-toolbar">
+          <label>Buscar lead<input id="leadSearch" type="text" placeholder="Email, nome, telefone, plano, UTM"></label>
+          <label>Status<select id="leadStatusFilter"><option value="all">Todos</option><option value="pending">Gerados</option><option value="paid">Pagos</option><option value="expired">Expirados</option><option value="canceled">Cancelados</option></select></label>
+          <button id="refreshLeads" class="secondary-button" type="button">Atualizar</button>
+        </div>
+        <div id="leadsTable" class="sales-table"></div>
+      </section>
+
+      <section id="section-sales" class="admin-section">
+        <div id="metricCards" class="metric-grid"></div>
+        <div id="transactionsTable" class="sales-table"></div>
+      </section>
+    </section>
+  </main>
+
+  <input id="uploadInput" class="hidden" type="file" accept="image/*,video/*">
+  <div id="toast" class="toast"></div>
+  <script src="/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "privacy-admin-checkout",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "express": "^4.19.2",
+    "multer": "^2.0.0"
+  }
+}

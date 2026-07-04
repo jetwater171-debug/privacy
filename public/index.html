@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy</title>
+  <meta name="description" content="Perfil, assinaturas e conteudos exclusivos">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="public-page">
+  <header class="topbar">
+    <img id="logo" class="topbar-logo" src="" alt="Logo">
+    <button class="login-pill" type="button" data-open-login>Entrar</button>
+  </header>
+
+  <main class="page-shell">
+    <section class="profile-shell">
+      <div id="banner" class="banner"></div>
+      <article class="profile-card">
+        <div class="stats" id="stats"></div>
+        <div class="avatar-stack">
+          <div class="avatar-ring"><img id="avatar" src="" alt="Avatar"></div>
+          <span class="live-badge"><b>AO VIVO</b> <span id="liveTime">07:19</span></span>
+        </div>
+        <div class="name-row">
+          <h1 id="profileName">Carregando</h1>
+          <img id="verifiedIcon" class="verified-icon" src="" alt="Verificado">
+        </div>
+        <strong id="handle" class="handle"></strong>
+        <p id="bio" class="bio"></p>
+        <p id="location" class="location"></p>
+        <div class="social-links">
+          <a id="instagram" class="social-link" href="#" target="_blank" rel="noopener">IG</a>
+          <a id="threads" class="social-link" href="#" target="_blank" rel="noopener">TH</a>
+        </div>
+
+        <section class="subscription-card">
+          <div class="subscription-head">
+            <h2>Assinaturas</h2>
+            <span class="secure-note">Pagamento seguro com acesso imediato apos confirmacao</span>
+          </div>
+          <div id="plans" class="plan-list"></div>
+          <p class="today-note"><span>⚡</span> Promocao ativa hoje</p>
+          <p id="legalNotice" class="legal-note"></p>
+        </section>
+      </article>
+    </section>
+
+    <section class="tabs" aria-label="Conteudo">
+      <button class="tab-button active" data-tab="posts" type="button"><span id="postsCount">594</span> Postagens</button>
+      <button class="tab-button" data-tab="media" type="button"><span id="mediaCount">647</span> Midias</button>
+    </section>
+
+    <section class="locked-post" data-open-checkout>
+      <div class="locked-post-main">
+        <img id="previewImage" src="" alt="Preview bloqueado">
+        <div class="lock-layer">
+          <span class="lock-icon">●</span>
+          <strong>Conteudo exclusivo</strong>
+          <small>Assine para liberar fotos, videos e mensagens.</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="feed-card">
+      <header class="feed-head">
+        <div class="feed-profile">
+          <img id="feedAvatar" src="" alt="Avatar">
+          <div><strong id="feedName"></strong><span id="feedHandle"></span></div>
+        </div>
+        <button class="dots" type="button">⋮</button>
+      </header>
+      <div class="filter-row">
+        <button class="filter-button active" data-filter="all" type="button">Todos</button>
+        <button class="filter-button" data-filter="foryou" type="button">Para Voce</button>
+        <button class="filter-button" data-filter="photos" type="button">Fotos</button>
+        <button class="filter-button" data-filter="videos" type="button">Videos</button>
+      </div>
+      <div id="gallery" class="gallery-grid"></div>
+    </section>
+  </main>
+
+  <div id="checkoutModal" class="modal" aria-hidden="true">
+    <div class="modal-panel checkout-panel" role="dialog" aria-modal="true">
+      <button id="closeCheckout" class="modal-close" type="button">×</button>
+      <div class="checkout-profile">
+        <div id="checkoutBanner" class="checkout-banner"></div>
+        <img id="checkoutAvatar" class="checkout-avatar" src="" alt="Avatar">
+        <h2 id="checkoutName"></h2>
+        <span id="checkoutHandle"></span>
+      </div>
+
+      <section class="checkout-step active" id="step-plan">
+        <h3 id="checkoutHeadline">Tenha acesso a tudo isso:</h3>
+        <ul id="benefits" class="benefit-list"></ul>
+        <div id="checkoutPlans" class="checkout-plans"></div>
+        <p id="selectedPlanCopy" class="selected-copy"></p>
+        <strong id="selectedPlanPrice" class="selected-price"></strong>
+        <h3 id="accountTitle">Crie sua conta para acessar</h3>
+        <div class="field-grid">
+          <input id="customerName" type="text" placeholder="Nome">
+          <input id="customerEmail" type="email" placeholder="Email">
+          <input id="customerPhone" type="tel" placeholder="WhatsApp">
+          <input id="customerDocument" type="text" placeholder="CPF">
+        </div>
+        <button id="generatePix" class="primary-button" type="button">Gerar PIX</button>
+        <small id="pushinPayNotice" class="processor-note"></small>
+      </section>
+
+      <section class="checkout-step" id="step-generating">
+        <div class="loader"></div>
+        <h3>Gerando cobranca...</h3>
+        <p id="processingText">Estamos preparando seu acesso VIP seguro.</p>
+      </section>
+
+      <section class="checkout-step" id="step-payment">
+        <span class="payment-state">AGUARDANDO PAGAMENTO</span>
+        <h3>PIX gerado</h3>
+        <img id="qrImage" class="qr-image" src="" alt="QR Code PIX">
+        <div class="charge-summary">
+          <span>Plano selecionado <strong id="chargePlanName"></strong></span>
+          <span>Valor <strong id="chargePlanValue"></strong></span>
+        </div>
+        <code id="pixCode" class="pix-code"></code>
+        <button id="copyPix" class="secondary-button" type="button">Copiar codigo PIX</button>
+        <button id="verifyPaymentNow" class="link-button" type="button">Ja paguei, verificar agora</button>
+        <p id="autoCheckText" class="muted">Detectando pagamento automaticamente...</p>
+      </section>
+
+      <section class="checkout-step" id="step-success">
+        <div class="success-mark">✓</div>
+        <h3 id="successTitle">PAGAMENTO CONFIRMADO</h3>
+        <p id="successText">Seu acesso foi liberado. Veja todo o conteudo aqui no site.</p>
+        <button id="accessNow" class="primary-button" type="button">Acessar conteudo agora</button>
+      </section>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
