@@ -13,7 +13,7 @@
       <p>Gerencie perfil, imagens, planos, galeria, gateways e vendas.</p>
       <input id="adminPassword" type="password" placeholder="Senha do admin" autocomplete="current-password">
       <button class="primary-button" type="submit">Entrar</button>
-      <small>Senha inicial: admin123</small>
+      <small>Use a senha configurada para este painel.</small>
     </form>
   </main>
 
@@ -117,6 +117,42 @@
   </main>
 
   <input id="uploadInput" class="hidden" type="file" accept="image/*,video/*">
+  <div id="cropModal" class="modal crop-modal" aria-hidden="true">
+    <div class="modal-panel crop-panel" role="dialog" aria-modal="true" aria-label="Cortar imagem">
+      <button id="closeCrop" class="modal-close" type="button">x</button>
+      <div class="crop-head">
+        <div>
+          <h2>Cortar imagem</h2>
+          <p id="cropHint">Ajuste o enquadramento antes de enviar.</p>
+        </div>
+        <label>Formato
+          <select id="cropAspect">
+            <option value="1">Quadrado</option>
+            <option value="0.8">Vertical 4:5</option>
+            <option value="0.5625">Story 9:16</option>
+            <option value="2.857">Banner</option>
+            <option value="4.8">Logo</option>
+            <option id="cropCustomAspect" value="1">Personalizado</option>
+          </select>
+        </label>
+      </div>
+      <div class="crop-size-grid">
+        <label>Largura final<input id="cropWidth" type="number" min="120" step="1"></label>
+        <label>Altura final<input id="cropHeight" type="number" min="120" step="1"></label>
+      </div>
+      <div id="cropStage" class="crop-stage">
+        <img id="cropImage" alt="Imagem para cortar">
+        <div class="crop-grid" aria-hidden="true"></div>
+      </div>
+      <div class="crop-controls">
+        <label>Zoom<input id="cropZoom" type="range" min="1" max="3" step="0.01" value="1"></label>
+        <div class="crop-actions">
+          <button id="uploadOriginal" class="secondary-button" type="button">Enviar original</button>
+          <button id="applyCrop" class="primary-button" type="button">Cortar e enviar</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div id="toast" class="toast"></div>
   <script src="/admin.js"></script>
 </body>

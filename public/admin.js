@@ -2,6 +2,7 @@ let site = null;
 let meta = null;
 let uploadTarget = null;
 let cachedLeads = [];
+let cropState = null;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
@@ -214,6 +215,144 @@ async function uploadFile(file) {
   toast('Arquivo enviado.');
 }
 
+function cropPresetForTarget(target) {
+  if (target === 'profile.avatar' || target === 'profile.verifiedIcon') return { aspect: 1, width: 720, height: 720, hint: 'Use o rosto bem centralizado. Ideal para avatar e selo.' };
+  if (target === 'profile.banner') return { aspect: 2.857, width: 1600, height: 560, hint: 'Use uma imagem larga. O banner do site corta bem no formato horizontal.' };
+  if (target === 'profile.logo') return { aspect: 4.8, width: 960, height: 200, hint: 'Deixe o logo centralizado e com respiro nas laterais.' };
+  if (String(target || '').startsWith('gallery.')) {
+    const index = Number(String(target).split('.')[1]);
+    const item = site.gallery?.[index] || {};
+    if (item.type === 'preview') return { aspect: 0.5625, width: 900, height: 1600, hint: 'Preview vertical para o post bloqueado.' };
+    return { aspect: 0.8, width: 840, height: 1050, hint: 'Formato vertical 4:5, igual aos cards do site.' };
+  }
+  return { aspect: 1, width: 900, height: 900, hint: 'Ajuste o corte para o tamanho desejado.' };
+}
+
+function openCropper(file) {
+  const preset = cropPresetForTarget(uploadTarget);
+  cropState = {
+    file,
+    preset,
+    url: URL.createObjectURL(file),
+    image: new Image(),
+    baseWidth: 0,
+    baseHeight: 0,
+    zoom: 1,
+    offsetX: 0,
+    offsetY: 0,
+    dragging: false,
+    startX: 0,
+    startY: 0,
+    startOffsetX: 0,
+    startOffsetY: 0
+  };
+  $('#cropHint').textContent = preset.hint;
+  setCropAspectValue(preset.aspect);
+  $('#cropWidth').value = preset.width;
+  $('#cropHeight').value = preset.height;
+  $('#cropZoom').value = '1';
+  $('#cropStage').style.setProperty('--crop-aspect', preset.aspect);
+  $('#cropImage').src = cropState.url;
+  cropState.image.onload = () => {
+    $('#cropModal').classList.add('active');
+    $('#cropModal').setAttribute('aria-hidden', 'false');
+    requestAnimationFrame(fitCropImage);
+  };
+  cropState.image.src = cropState.url;
+}
+
+function setCropAspectValue(aspect) {
+  const select = $('#cropAspect');
+  const value = String(aspect);
+  const existing = Array.from(select.options).find((option) => Math.abs(Number(option.value) - Number(aspect)) < 0.001 && option.id !== 'cropCustomAspect');
+  if (existing) {
+    select.value = existing.value;
+  } else {
+    $('#cropCustomAspect').value = value;
+    select.value = value;
+  }
+}
+
+function closeCropper() {
+  if (cropState?.url) URL.revokeObjectURL(cropState.url);
+  cropState = null;
+  $('#cropModal').classList.remove('active');
+  $('#cropModal').setAttribute('aria-hidden', 'true');
+  $('#cropImage').removeAttribute('src');
+}
+
+function cropStageRect() {
+  return $('#cropStage').getBoundingClientRect();
+}
+
+function fitCropImage() {
+  if (!cropState) return;
+  const rect = cropStageRect();
+  if (!rect.width || !rect.height) return;
+  const imageRatio = cropState.image.naturalWidth / cropState.image.naturalHeight;
+  const stageRatio = rect.width / rect.height;
+  if (imageRatio > stageRatio) {
+    cropState.baseHeight = rect.height;
+    cropState.baseWidth = rect.height * imageRatio;
+  } else {
+    cropState.baseWidth = rect.width;
+    cropState.baseHeight = rect.width / imageRatio;
+  }
+  cropState.zoom = Number($('#cropZoom').value || 1);
+  cropState.offsetX = 0;
+  cropState.offsetY = 0;
+  applyCropTransform();
+}
+
+function constrainCropOffset() {
+  const rect = cropStageRect();
+  const width = cropState.baseWidth * cropState.zoom;
+  const height = cropState.baseHeight * cropState.zoom;
+  const maxX = Math.max(0, (width - rect.width) / 2);
+  const maxY = Math.max(0, (height - rect.height) / 2);
+  cropState.offsetX = Math.min(maxX, Math.max(-maxX, cropState.offsetX));
+  cropState.offsetY = Math.min(maxY, Math.max(-maxY, cropState.offsetY));
+}
+
+function applyCropTransform() {
+  if (!cropState) return;
+  constrainCropOffset();
+  const img = $('#cropImage');
+  img.style.width = `${cropState.baseWidth}px`;
+  img.style.height = `${cropState.baseHeight}px`;
+  img.style.transform = `translate(calc(-50% + ${cropState.offsetX}px), calc(-50% + ${cropState.offsetY}px)) scale(${cropState.zoom})`;
+}
+
+async function uploadCroppedImage() {
+  if (!cropState) return;
+  const rect = cropStageRect();
+  const preset = {
+    ...cropState.preset,
+    aspect: Number($('#cropAspect').value || cropState.preset.aspect)
+  };
+  const outputWidth = Math.max(120, Number($('#cropWidth').value || preset.width));
+  const outputHeight = Math.max(120, Number($('#cropHeight').value || preset.height || Math.round(outputWidth / preset.aspect)));
+  const displayWidth = cropState.baseWidth * cropState.zoom;
+  const displayHeight = cropState.baseHeight * cropState.zoom;
+  const left = rect.width / 2 + cropState.offsetX - displayWidth / 2;
+  const top = rect.height / 2 + cropState.offsetY - displayHeight / 2;
+  const sx = Math.max(0, (-left / displayWidth) * cropState.image.naturalWidth);
+  const sy = Math.max(0, (-top / displayHeight) * cropState.image.naturalHeight);
+  const sw = Math.min(cropState.image.naturalWidth - sx, (rect.width / displayWidth) * cropState.image.naturalWidth);
+  const sh = Math.min(cropState.image.naturalHeight - sy, (rect.height / displayHeight) * cropState.image.naturalHeight);
+  const canvas = document.createElement('canvas');
+  canvas.width = outputWidth;
+  canvas.height = outputHeight;
+  const ctx = canvas.getContext('2d');
+  ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(cropState.image, sx, sy, sw, sh, 0, 0, outputWidth, outputHeight);
+  const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/webp', 0.9));
+  if (!blob) throw new Error('Nao foi possivel cortar a imagem.');
+  const filename = `${(cropState.file.name || 'imagem').replace(/\.[^.]+$/, '')}-crop.webp`;
+  closeCropper();
+  await uploadFile(new File([blob], filename, { type: 'image/webp' }));
+}
+
 async function testGateways() {
   readEditors();
   $('#gatewayTestResult').textContent = 'Testando...';
@@ -424,6 +563,7 @@ function bindEvents() {
       renderGallery();
     }
     if (target.dataset.uploadTarget) {
+      readEditors();
       uploadTarget = target.dataset.uploadTarget;
       $('#uploadInput').click();
     }
@@ -439,10 +579,67 @@ function bindEvents() {
     event.target.value = '';
     if (!file || !uploadTarget) return;
     try {
-      await uploadFile(file);
+      if (file.type.startsWith('image/')) openCropper(file);
+      else await uploadFile(file);
     } catch (error) {
       toast(error.message);
     }
+  });
+
+  $('#closeCrop').addEventListener('click', closeCropper);
+  $('#uploadOriginal').addEventListener('click', async () => {
+    if (!cropState) return;
+    const file = cropState.file;
+    closeCropper();
+    await uploadFile(file).catch((error) => toast(error.message));
+  });
+  $('#applyCrop').addEventListener('click', () => uploadCroppedImage().catch((error) => toast(error.message)));
+  $('#cropAspect').addEventListener('change', () => {
+    if (!cropState) return;
+    const aspect = Number($('#cropAspect').value || 1);
+    const width = Math.max(120, Number($('#cropWidth').value || cropState.preset.width));
+    $('#cropHeight').value = Math.round(width / aspect);
+    $('#cropStage').style.setProperty('--crop-aspect', aspect);
+    requestAnimationFrame(fitCropImage);
+  });
+  $('#cropWidth').addEventListener('change', () => {
+    const width = Math.max(120, Number($('#cropWidth').value || 120));
+    const height = Math.max(120, Number($('#cropHeight').value || 120));
+    const aspect = width / height;
+    setCropAspectValue(aspect);
+    $('#cropStage').style.setProperty('--crop-aspect', aspect);
+    requestAnimationFrame(fitCropImage);
+  });
+  $('#cropHeight').addEventListener('change', () => {
+    const width = Math.max(120, Number($('#cropWidth').value || 120));
+    const height = Math.max(120, Number($('#cropHeight').value || 120));
+    const aspect = width / height;
+    setCropAspectValue(aspect);
+    $('#cropStage').style.setProperty('--crop-aspect', aspect);
+    requestAnimationFrame(fitCropImage);
+  });
+  $('#cropZoom').addEventListener('input', () => {
+    if (!cropState) return;
+    cropState.zoom = Number($('#cropZoom').value || 1);
+    applyCropTransform();
+  });
+  $('#cropStage').addEventListener('pointerdown', (event) => {
+    if (!cropState) return;
+    cropState.dragging = true;
+    cropState.startX = event.clientX;
+    cropState.startY = event.clientY;
+    cropState.startOffsetX = cropState.offsetX;
+    cropState.startOffsetY = cropState.offsetY;
+    $('#cropStage').setPointerCapture(event.pointerId);
+  });
+  $('#cropStage').addEventListener('pointermove', (event) => {
+    if (!cropState?.dragging) return;
+    cropState.offsetX = cropState.startOffsetX + event.clientX - cropState.startX;
+    cropState.offsetY = cropState.startOffsetY + event.clientY - cropState.startY;
+    applyCropTransform();
+  });
+  $('#cropStage').addEventListener('pointerup', () => {
+    if (cropState) cropState.dragging = false;
   });
 }
 

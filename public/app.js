@@ -67,6 +67,8 @@ function renderProfile() {
   setText('#mediaCount', site.profile.stats?.media || '0');
   $('#instagram').href = site.profile.instagram || '#';
   $('#threads').href = site.profile.threads || '#';
+  $('#instagram').innerHTML = socialIcon('instagram');
+  $('#threads').innerHTML = socialIcon('threads');
 
   const stats = site.profile.stats || {};
   $('#stats').innerHTML = [
@@ -123,6 +125,14 @@ function statIcon(name) {
     videos: '<svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.2"></rect><path d="M3.5 9h17"></path><path d="M10 11.2l4.4 2.8L10 16.8z"></path></svg>',
     lock: '<svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="10" width="13" height="10" rx="2"></rect><path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10"></path></svg>',
     heart: '<svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 5.9a5.2 5.2 0 0 0-7.4 0L12 6.9l-1-1a5.2 5.2 0 0 0-7.4 7.4L12 21l8.4-7.7a5.2 5.2 0 0 0 0-7.4z"></path></svg>'
+  };
+  return icons[name] || '';
+}
+
+function socialIcon(name) {
+  const icons = {
+    instagram: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.2"></rect><circle cx="12" cy="12" r="3.4"></circle><circle cx="16.9" cy="7.1" r="1"></circle></svg>',
+    threads: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.2 11.3c1.9.7 3.1 2 3.1 4 0 3.1-2.7 5.2-6.4 5.2-3.5 0-6.2-1.9-6.2-5.1 0-2 1.2-3.5 3.2-4.2"></path><path d="M8.2 8.8c.7-3.3 2.7-5.3 5.3-5.3 2.8 0 4.8 2.1 5.5 5.7"></path><path d="M5.4 8.6c4.1-1.4 8.4-1.5 13.2 0"></path><path d="M8.5 12.2c2.2-.9 4.9-1 7.2-.1"></path><path d="M11.1 15.1c.9-1.1 2.7-1.1 3.7 0"></path></svg>'
   };
   return icons[name] || '';
 }
