@@ -247,11 +247,8 @@ function openCropper(file) {
     startOffsetY: 0
   };
   $('#cropHint').textContent = preset.hint;
-  setCropAspectValue(preset.aspect);
-  $('#cropWidth').value = preset.width;
-  $('#cropHeight').value = preset.height;
+  setCropSize(preset.width, preset.height);
   $('#cropZoom').value = '1';
-  $('#cropStage').style.setProperty('--crop-aspect', preset.aspect);
   $('#cropImage').src = cropState.url;
   cropState.image.onload = () => {
     $('#cropModal').classList.add('active');
@@ -271,6 +268,34 @@ function setCropAspectValue(aspect) {
     $('#cropCustomAspect').value = value;
     select.value = value;
   }
+}
+
+function currentCropAspect() {
+  const width = Math.max(120, Number($('#cropWidth').value || cropState?.preset?.width || 120));
+  const height = Math.max(120, Number($('#cropHeight').value || cropState?.preset?.height || 120));
+  return width / height;
+}
+
+function setCropSize(width, height) {
+  const safeWidth = Math.max(120, Math.round(Number(width || 120)));
+  const safeHeight = Math.max(120, Math.round(Number(height || 120)));
+  $('#cropWidth').value = safeWidth;
+  $('#cropHeight').value = safeHeight;
+  const aspect = safeWidth / safeHeight;
+  setCropAspectValue(aspect);
+  $('#cropStage').style.setProperty('--crop-aspect', aspect);
+}
+
+function setCropWidthKeepingAspect(width) {
+  const aspect = currentCropAspect();
+  const safeWidth = Math.max(120, Math.round(Number(width || 120)));
+  setCropSize(safeWidth, safeWidth / aspect);
+}
+
+function setCropHeightKeepingAspect(height) {
+  const aspect = currentCropAspect();
+  const safeHeight = Math.max(120, Math.round(Number(height || 120)));
+  setCropSize(safeHeight * aspect, safeHeight);
 }
 
 function closeCropper() {
@@ -326,12 +351,8 @@ function applyCropTransform() {
 async function uploadCroppedImage() {
   if (!cropState) return;
   const rect = cropStageRect();
-  const preset = {
-    ...cropState.preset,
-    aspect: Number($('#cropAspect').value || cropState.preset.aspect)
-  };
-  const outputWidth = Math.max(120, Number($('#cropWidth').value || preset.width));
-  const outputHeight = Math.max(120, Number($('#cropHeight').value || preset.height || Math.round(outputWidth / preset.aspect)));
+  const outputWidth = Math.max(120, Math.round(Number($('#cropWidth').value || cropState.preset.width)));
+  const outputHeight = Math.max(120, Math.round(Number($('#cropHeight').value || cropState.preset.height)));
   const displayWidth = cropState.baseWidth * cropState.zoom;
   const displayHeight = cropState.baseHeight * cropState.zoom;
   const left = rect.width / 2 + cropState.offsetX - displayWidth / 2;
@@ -598,24 +619,17 @@ function bindEvents() {
     if (!cropState) return;
     const aspect = Number($('#cropAspect').value || 1);
     const width = Math.max(120, Number($('#cropWidth').value || cropState.preset.width));
-    $('#cropHeight').value = Math.round(width / aspect);
-    $('#cropStage').style.setProperty('--crop-aspect', aspect);
+    setCropSize(width, width / aspect);
     requestAnimationFrame(fitCropImage);
   });
   $('#cropWidth').addEventListener('change', () => {
-    const width = Math.max(120, Number($('#cropWidth').value || 120));
-    const height = Math.max(120, Number($('#cropHeight').value || 120));
-    const aspect = width / height;
-    setCropAspectValue(aspect);
-    $('#cropStage').style.setProperty('--crop-aspect', aspect);
+    if (!cropState) return;
+    setCropWidthKeepingAspect($('#cropWidth').value);
     requestAnimationFrame(fitCropImage);
   });
   $('#cropHeight').addEventListener('change', () => {
-    const width = Math.max(120, Number($('#cropWidth').value || 120));
-    const height = Math.max(120, Number($('#cropHeight').value || 120));
-    const aspect = width / height;
-    setCropAspectValue(aspect);
-    $('#cropStage').style.setProperty('--crop-aspect', aspect);
+    if (!cropState) return;
+    setCropHeightKeepingAspect($('#cropHeight').value);
     requestAnimationFrame(fitCropImage);
   });
   $('#cropZoom').addEventListener('input', () => {

@@ -1074,6 +1074,12 @@ button { cursor: pointer; }
   font-size: 13px;
   font-weight: 850;
 }
+.crop-size-note {
+  margin: -4px 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+}
 .crop-stage {
   --crop-aspect: 1;
   position: relative;
