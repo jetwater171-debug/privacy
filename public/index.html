@@ -9,21 +9,23 @@
 </head>
 <body class="public-page">
   <header class="topbar">
-    <img id="logo" class="topbar-logo" src="" alt="Logo">
+    <div class="topbar-inner">
+    <img id="logo" class="brand-logo topbar-logo" src="" alt="Logo">
     <div class="topbar-actions">
       <span class="language-pill" aria-label="Idioma">PT</span>
       <button class="login-pill" type="button" data-open-login>Entrar</button>
     </div>
+    </div>
   </header>
 
-  <main class="page-shell">
+  <main class="page-shell page">
     <section class="profile-shell">
-      <div id="banner" class="banner"></div>
+      <div id="banner" class="banner"><img id="bannerImage" src="" alt="Capa"></div>
       <article class="profile-card">
         <div class="stats" id="stats"></div>
-        <div class="avatar-stack">
+        <div class="avatar-stack avatar-wrap">
           <div class="avatar-ring"><img id="avatar" src="" alt="Avatar"></div>
-          <span class="live-badge"><b>AO VIVO</b> <span id="liveTime">07:19</span></span>
+          <span class="live-badge"><strong>AO VIVO</strong> <span id="liveTime">07:19</span></span>
         </div>
         <div class="name-row">
           <h1 id="profileName">Carregando</h1>
@@ -39,20 +41,21 @@
 
         <section class="subscription-card">
           <div class="subscription-head">
-            <h2>Assinaturas</h2>
+            <h2 class="section-title">Assinaturas</h2>
             <span class="secure-note">Pagamento seguro com acesso imediato apos confirmacao</span>
           </div>
-          <div id="plans" class="plan-list"></div>
+          <div id="plans" class="plan-list subscription-plan-list"></div>
           <p class="today-note"><span>⚡</span> Promocao ativa hoje</p>
           <p id="legalNotice" class="legal-note"></p>
         </section>
       </article>
     </section>
 
-    <section class="tabs" aria-label="Conteudo">
-      <button class="tab-button active" data-tab="posts" type="button"><span id="postsCount">594</span> Postagens</button>
-      <button class="tab-button" data-tab="media" type="button"><span id="mediaCount">647</span> Midias</button>
-    </section>
+    <section class="content-area">
+      <div class="tabs" aria-label="Conteudo" role="tablist">
+        <button class="tab-button active" data-tab="posts" type="button"><span id="postsCount">594</span> Postagens</button>
+        <button class="tab-button" data-tab="media" type="button"><span id="mediaCount">647</span> Midias</button>
+      </div>
 
     <section class="locked-post" data-open-checkout>
       <div class="locked-post-main">
@@ -65,7 +68,7 @@
       </div>
     </section>
 
-    <section class="feed-card">
+    <section class="feed-card gallery-card">
       <header class="feed-head">
         <div class="feed-profile">
           <img id="feedAvatar" src="" alt="Avatar">
@@ -79,7 +82,8 @@
         <button class="filter-button" data-filter="photos" type="button">Fotos</button>
         <button class="filter-button" data-filter="videos" type="button">Videos</button>
       </div>
-      <div id="gallery" class="gallery-grid"></div>
+      <div id="gallery" class="gallery-grid media-grid"></div>
+    </section>
     </section>
   </main>
 

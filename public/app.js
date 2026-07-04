@@ -51,6 +51,7 @@ function renderProfile() {
   setImage('#checkoutAvatar', site.profile.avatar);
   setImage('#verifiedIcon', site.profile.verifiedIcon);
   setImage('#feedVerifiedIcon', site.profile.verifiedIcon);
+  setImage('#bannerImage', site.profile.banner);
   setBackground('#banner', site.profile.banner);
   setBackground('#checkoutBanner', site.profile.banner);
   setText('#profileName', site.profile.name);
@@ -86,7 +87,7 @@ function renderProfile() {
 function renderPlans() {
   const plans = (site.plans || []).filter((plan) => plan.active !== false);
   selectedPlan = plans[0] || null;
-  const markup = plans.map((plan) => planButton(plan, 'plan-button')).join('');
+  const markup = plans.map((plan, index) => `${index === 2 || plan.featured ? promotionMarkup() : ''}${planButton(plan, 'plan-button')}`).join('');
   $('#plans').innerHTML = markup;
   $('#checkoutPlans').innerHTML = plans.map((plan) => planButton(plan, 'checkout-plan')).join('');
   $$('.plan-button').forEach((button) => button.addEventListener('click', () => openCheckout(button.dataset.planId)));
@@ -110,6 +111,10 @@ function privacyPlanButton(plan, className) {
         <strong>${brl(plan.price)}</strong>
       </span>
     </button>`;
+}
+
+function promotionMarkup() {
+  return '<div class="subscription-today subscription-today-before-vitalicio"><span aria-hidden="true">&#9889;</span> Promocao ativa hoje</div>';
 }
 
 function statIcon(name) {
@@ -140,29 +145,31 @@ function renderGallery() {
   const postCard = $('.locked-post');
   if (postCard) {
     postCard.innerHTML = `
-      <header class="feed-head">
-        <div class="feed-profile">
+      <div class="post-collection">
+        ${mosaicItems.map((item, index) => collectionTileMarkup(item, index === 0 ? 'featured' : 'small')).join('')}
+      </div>
+      <div class="post-top">
+        <div class="post-author">
           <img src="${escapeHtml(site.profile.avatar)}" alt="Avatar">
           <div>
             <strong>${escapeHtml(site.profile.name)}${site.profile.verifiedIcon ? `<img class="feed-verified-icon" src="${escapeHtml(site.profile.verifiedIcon)}" alt="Verificado">` : ''}</strong>
             <span>${escapeHtml(site.profile.handle)}</span>
           </div>
         </div>
-        <button class="dots" type="button" aria-label="Mais opcoes">&#8942;</button>
-      </header>
-      <div class="post-mosaic">
-        ${mosaicItems.map((item, index) => lockedMediaMarkup(item, index === 0 ? 'wide' : '')).join('')}
+        <span class="dots" aria-hidden="true">&#8942;</span>
       </div>
-      <div class="post-actions" aria-hidden="true">
-        <span>&#9825;</span>
-        <span>&#9675;</span>
-        <span>$</span>
-        <span>&#9633;</span>
+      <div class="post-bottom">
+        <span class="post-actions" aria-hidden="true">
+          <span class="post-icon">${postIcon('heart')}</span>
+          <span class="post-icon">${postIcon('comment')}</span>
+          <span class="post-icon post-icon-coin">${postIcon('coin')}</span>
+        </span>
+        <span class="post-icon post-icon-save" aria-hidden="true">${postIcon('save')}</span>
       </div>`;
   }
   setImage('#previewImage', preview?.src || '');
   $('#gallery').innerHTML = gallery.map((item) => `
-    <button class="gallery-tile" data-open-checkout data-category="${item.category || 'all'}" data-type="${item.type || 'photo'}" type="button">
+    <button class="gallery-tile media-tile" data-open-checkout data-category="${item.category || 'all'}" data-type="${item.type || 'photo'}" type="button">
       <img src="${item.src}" alt="${item.title || 'Midia exclusiva'}" loading="lazy">
       <span class="tile-lock" aria-hidden="true"></span>
     </button>
@@ -176,6 +183,28 @@ function lockedMediaMarkup(item, className = '') {
       <img src="${escapeHtml(item?.src || '')}" alt="${escapeHtml(item?.title || 'Midia exclusiva')}" loading="lazy">
       <span class="tile-lock" aria-hidden="true"></span>
     </button>`;
+}
+
+function collectionTileMarkup(item, className = '') {
+  return `
+    <div class="collection-tile ${className}">
+      <img src="${escapeHtml(item?.src || '')}" alt="${escapeHtml(item?.title || 'Midia exclusiva')}" loading="lazy">
+      <div class="collection-lock">${lockSvg()}</div>
+    </div>`;
+}
+
+function lockSvg() {
+  return '<svg class="lock-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="5" y="10" width="14" height="10" rx="2.5"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path><path d="M12 14v3"></path></svg>';
+}
+
+function postIcon(name) {
+  const icons = {
+    heart: '<svg class="post-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 5.9a5.2 5.2 0 0 0-7.4 0L12 6.9l-1-1a5.2 5.2 0 0 0-7.4 7.4L12 21l8.4-7.7a5.2 5.2 0 0 0 0-7.4z"></path></svg>',
+    comment: '<svg class="post-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.6a7.4 7.4 0 0 1-7.8 7.2 8.8 8.8 0 0 1-3.8-.9L4 19l1.2-4a7.1 7.1 0 0 1-.9-3.4A7.5 7.5 0 0 1 12 4.2a7.5 7.5 0 0 1 8 7.4z"></path></svg>',
+    coin: '<svg class="post-action-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.4"></circle><path d="M12 7.2v9.6"></path><path d="M15.2 9.1c-.7-.7-1.7-1.1-3-1.1-1.6 0-2.7.8-2.7 2 0 1.1.8 1.7 2.8 2.2 1.9.5 2.7 1.1 2.7 2.2 0 1.2-1.2 2-2.9 2-1.4 0-2.6-.5-3.4-1.3"></path></svg>',
+    save: '<svg class="post-action-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.5h11v15.2L12 16.5l-5.5 3.2z"></path></svg>'
+  };
+  return icons[name] || '';
 }
 
 function renderCheckoutCopy() {
