@@ -100,6 +100,34 @@
       "title": "Previa exclusiva 4"
     },
     {
+      "id": "top5",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-top-05-thumb.webp",
+      "title": "Previa exclusiva 5"
+    },
+    {
+      "id": "top6",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-top-06-thumb.webp",
+      "title": "Previa exclusiva 6"
+    },
+    {
+      "id": "top7",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-top-07-thumb.webp",
+      "title": "Previa exclusiva 7"
+    },
+    {
+      "id": "top8",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-top-08-thumb.webp",
+      "title": "Previa exclusiva 8"
+    },
+    {
       "id": "photo1",
       "type": "photo",
       "category": "all photos",
@@ -112,6 +140,34 @@
       "category": "all photos",
       "src": "/uploads/seed/gallery-photo-2-thumb.webp",
       "title": "Foto exclusiva 2"
+    },
+    {
+      "id": "photo3",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-photo-3-thumb.webp",
+      "title": "Foto exclusiva 3"
+    },
+    {
+      "id": "photo4",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-photo-4-thumb.webp",
+      "title": "Foto exclusiva 4"
+    },
+    {
+      "id": "photo5",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-photo-5-thumb.webp",
+      "title": "Foto exclusiva 5"
+    },
+    {
+      "id": "photo6",
+      "type": "photo",
+      "category": "all photos",
+      "src": "/uploads/seed/gallery-photo-6-thumb.webp",
+      "title": "Foto exclusiva 6"
     },
     {
       "id": "for1",
@@ -133,6 +189,104 @@
       "category": "all foryou photos",
       "src": "/uploads/seed/foryou-3-thumb.webp",
       "title": "Para voce especial 3"
+    },
+    {
+      "id": "for4",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-4-thumb.webp",
+      "title": "Para voce especial 4"
+    },
+    {
+      "id": "for5",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-5-thumb.webp",
+      "title": "Para voce especial 5"
+    },
+    {
+      "id": "for6",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-6-thumb.webp",
+      "title": "Para voce especial 6"
+    },
+    {
+      "id": "for7",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-7-thumb.webp",
+      "title": "Para voce especial 7"
+    },
+    {
+      "id": "for8",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-8-thumb.webp",
+      "title": "Para voce especial 8"
+    },
+    {
+      "id": "for9",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-9-thumb.webp",
+      "title": "Para voce especial 9"
+    },
+    {
+      "id": "for10",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-10-thumb.webp",
+      "title": "Para voce especial 10"
+    },
+    {
+      "id": "for11",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-11-thumb.webp",
+      "title": "Para voce especial 11"
+    },
+    {
+      "id": "for12",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-12-thumb.webp",
+      "title": "Para voce especial 12"
+    },
+    {
+      "id": "for13",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-13-thumb.webp",
+      "title": "Para voce especial 13"
+    },
+    {
+      "id": "for14",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-14-thumb.webp",
+      "title": "Para voce especial 14"
+    },
+    {
+      "id": "for15",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-15-thumb.webp",
+      "title": "Para voce especial 15"
+    },
+    {
+      "id": "for16",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-16-thumb.webp",
+      "title": "Para voce especial 16"
+    },
+    {
+      "id": "for17",
+      "type": "photo",
+      "category": "all foryou photos",
+      "src": "/uploads/seed/foryou-17-thumb.webp",
+      "title": "Para voce especial 17"
     },
     {
       "id": "video1",
@@ -161,6 +315,62 @@
       "category": "all videos",
       "src": "/uploads/seed/video-4-thumb.webp",
       "title": "Video exclusivo 4"
+    },
+    {
+      "id": "video5",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-5-thumb.webp",
+      "title": "Video exclusivo 5"
+    },
+    {
+      "id": "video6",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-6-thumb.webp",
+      "title": "Video exclusivo 6"
+    },
+    {
+      "id": "video7",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-7-thumb.webp",
+      "title": "Video exclusivo 7"
+    },
+    {
+      "id": "video8",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-8-thumb.webp",
+      "title": "Video exclusivo 8"
+    },
+    {
+      "id": "video9",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-9-thumb.webp",
+      "title": "Video exclusivo 9"
+    },
+    {
+      "id": "video10",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-10-thumb.webp",
+      "title": "Video exclusivo 10"
+    },
+    {
+      "id": "video11",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-11-thumb.webp",
+      "title": "Video exclusivo 11"
+    },
+    {
+      "id": "video12",
+      "type": "video",
+      "category": "all videos",
+      "src": "/uploads/seed/video-12-thumb.webp",
+      "title": "Video exclusivo 12"
     }
   ],
   "checkout": {

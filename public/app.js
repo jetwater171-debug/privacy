@@ -50,6 +50,7 @@ function renderProfile() {
   setImage('#feedAvatar', site.profile.avatar);
   setImage('#checkoutAvatar', site.profile.avatar);
   setImage('#verifiedIcon', site.profile.verifiedIcon);
+  setImage('#feedVerifiedIcon', site.profile.verifiedIcon);
   setBackground('#banner', site.profile.banner);
   setBackground('#checkoutBanner', site.profile.banner);
   setText('#profileName', site.profile.name);
@@ -68,11 +69,11 @@ function renderProfile() {
 
   const stats = site.profile.stats || {};
   $('#stats').innerHTML = [
-    ['♡', stats.likes],
-    ['◉', stats.followers],
-    ['▣', stats.comments],
-    ['↗', stats.views]
-  ].map(([icon, value]) => `<span class="stat-item">${icon} ${value || 0}</span>`).join('');
+    ['photos', stats.likes],
+    ['videos', stats.followers],
+    ['lock', stats.comments],
+    ['heart', stats.views]
+  ].map(([icon, value]) => `<span class="stat-item">${statIcon(icon)}<span class="stat-value">${escapeHtml(value || 0)}</span></span>`).join('');
 
   liveSeconds = parseLive(site.profile.liveStart);
   setText('#liveTime', formatSeconds(liveSeconds));
@@ -94,16 +95,31 @@ function renderPlans() {
 }
 
 function planButton(plan, className) {
+  return privacyPlanButton(plan, className);
+}
+
+function privacyPlanButton(plan, className) {
   const featured = plan.featured ? ' featured' : '';
+  const subscriptionClass = className === 'plan-button' ? ' subscription-plan-button' : '';
   return `
-    <button class="${className}${featured}" data-plan-id="${plan.id}" type="button">
-      <span class="plan-name">${plan.name}${plan.featured ? ' <em class="best-choice">MELHOR ESCOLHA</em>' : ''}</span>
-      <span class="plan-price">
-        ${plan.oldPrice ? `<span class="strike">${brl(plan.oldPrice)}</span>` : ''}
-        ${plan.discount ? `<span class="discount">${plan.discount}</span>` : ''}
+    <button class="${className}${subscriptionClass}${featured}" data-plan-id="${escapeHtml(plan.id)}" type="button">
+      ${plan.featured ? '<span class="best-choice">MELHOR ESCOLHA</span>' : ''}
+      <span class="plan-name">${escapeHtml(plan.name)}</span>
+      <span class="plan-price plan-price-wrap">
+        ${plan.oldPrice || plan.discount ? `<span class="strike-stack">${plan.discount ? `<span class="discount plan-discount">${escapeHtml(plan.discount)}</span>` : ''}${plan.oldPrice ? `<span class="strike">${brl(plan.oldPrice)}</span>` : ''}</span>` : ''}
         <strong>${brl(plan.price)}</strong>
       </span>
     </button>`;
+}
+
+function statIcon(name) {
+  const icons = {
+    photos: '<svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.5"></rect><circle cx="8.5" cy="9.5" r="1.6"></circle><path d="M5.5 17l4.4-4.7 3.1 3.1 2.1-2.3 3.4 3.9"></path></svg>',
+    videos: '<svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2.2"></rect><path d="M3.5 9h17"></path><path d="M10 11.2l4.4 2.8L10 16.8z"></path></svg>',
+    lock: '<svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.5" y="10" width="13" height="10" rx="2"></rect><path d="M8.5 10V7.5a3.5 3.5 0 0 1 7 0V10"></path></svg>',
+    heart: '<svg class="stat-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 5.9a5.2 5.2 0 0 0-7.4 0L12 6.9l-1-1a5.2 5.2 0 0 0-7.4 7.4L12 21l8.4-7.7a5.2 5.2 0 0 0 0-7.4z"></path></svg>'
+  };
+  return icons[name] || '';
 }
 
 function selectPlan(planId) {
@@ -119,13 +135,47 @@ function selectPlan(planId) {
 
 function renderGallery() {
   const preview = (site.gallery || []).find((item) => item.type === 'preview') || (site.gallery || [])[0];
+  const gallery = site.gallery || [];
+  const mosaicItems = gallery.filter((item) => item.id !== preview?.id).slice(0, 3);
+  const postCard = $('.locked-post');
+  if (postCard) {
+    postCard.innerHTML = `
+      <header class="feed-head">
+        <div class="feed-profile">
+          <img src="${escapeHtml(site.profile.avatar)}" alt="Avatar">
+          <div>
+            <strong>${escapeHtml(site.profile.name)}${site.profile.verifiedIcon ? `<img class="feed-verified-icon" src="${escapeHtml(site.profile.verifiedIcon)}" alt="Verificado">` : ''}</strong>
+            <span>${escapeHtml(site.profile.handle)}</span>
+          </div>
+        </div>
+        <button class="dots" type="button" aria-label="Mais opcoes">&#8942;</button>
+      </header>
+      <div class="post-mosaic">
+        ${mosaicItems.map((item, index) => lockedMediaMarkup(item, index === 0 ? 'wide' : '')).join('')}
+      </div>
+      <div class="post-actions" aria-hidden="true">
+        <span>&#9825;</span>
+        <span>&#9675;</span>
+        <span>$</span>
+        <span>&#9633;</span>
+      </div>`;
+  }
   setImage('#previewImage', preview?.src || '');
-  $('#gallery').innerHTML = (site.gallery || []).map((item) => `
+  $('#gallery').innerHTML = gallery.map((item) => `
     <button class="gallery-tile" data-open-checkout data-category="${item.category || 'all'}" data-type="${item.type || 'photo'}" type="button">
       <img src="${item.src}" alt="${item.title || 'Midia exclusiva'}" loading="lazy">
+      <span class="tile-lock" aria-hidden="true"></span>
     </button>
   `).join('');
   $$('[data-open-checkout]').forEach((el) => el.addEventListener('click', () => openCheckout(selectedPlan?.id)));
+}
+
+function lockedMediaMarkup(item, className = '') {
+  return `
+    <button class="mosaic-tile ${className}" type="button">
+      <img src="${escapeHtml(item?.src || '')}" alt="${escapeHtml(item?.title || 'Midia exclusiva')}" loading="lazy">
+      <span class="tile-lock" aria-hidden="true"></span>
+    </button>`;
 }
 
 function renderCheckoutCopy() {
