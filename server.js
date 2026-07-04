@@ -56,7 +56,7 @@ const GATEWAYS = {
 
 const DEFAULT_SITE = {
   admin: {
-    passwordHash: hashPassword('admin123')
+    passwordHash: hashPassword('Leo12345!')
   },
   profile: {
     siteTitle: 'Privacy Luiza Avila',
