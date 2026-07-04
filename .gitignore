@@ -4,3 +4,4 @@ data/*.json.tmp
 .server.pid
 
 .vercel
+supabase/.temp/
