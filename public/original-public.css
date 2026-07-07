@@ -88,8 +88,10 @@ body.public-page *::after {
 .public-page .lang-btn {
   min-width: 48px;
   height: 32px;
-  border: 0;
-  background: transparent;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
   color: #071121;
   display: inline-flex;
   align-items: center;
@@ -1172,6 +1174,10 @@ body.public-page *::after {
     min-width: 40px;
     height: 30px;
     font-size: 11px;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
   }
 
   .public-page .page {
@@ -1183,12 +1189,16 @@ body.public-page *::after {
   }
 
   .public-page .banner {
-    height: 96px;
+    height: 58px;
     border-radius: 9px 9px 0 0;
   }
 
+  .public-page .banner img {
+    object-position: center 36%;
+  }
+
   .public-page .profile-card {
-    padding: 12px 14px 18px;
+    padding: 10px 14px 18px;
     border-radius: 0 0 9px 9px;
     box-shadow: none;
   }
@@ -1208,56 +1218,58 @@ body.public-page *::after {
   }
 
   .public-page .avatar-wrap {
-    width: 86px;
-    height: 112px;
-    margin-top: -50px;
-    margin-left: 14px;
+    width: 76px;
+    height: 92px;
+    margin-top: -36px;
+    margin-left: 8px;
   }
 
   .public-page .avatar-ring {
-    width: 78px;
-    height: 78px;
+    width: 66px;
+    height: 66px;
     border-width: 4px;
   }
 
   .public-page .live-badge {
-    left: -5px;
-    min-width: 94px;
-    min-height: 42px;
+    left: -7px;
+    bottom: -2px;
+    min-width: 84px;
+    min-height: 34px;
     grid-template-columns: 1fr auto;
     border-radius: 9px;
-    padding: 6px 8px;
+    padding: 5px 8px;
   }
 
   .public-page .live-badge strong {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .public-page .live-badge span {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .public-page .name-row {
     gap: 7px;
-    margin-top: -1px;
+    margin-top: 1px;
   }
 
   .public-page .name-row h1 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .public-page .verified-icon {
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
   }
 
   .public-page .handle {
-    font-size: 14px;
+    font-size: 13px;
+    line-height: 1.05;
   }
 
   .public-page .bio {
-    margin-top: 14px;
-    font-size: 13px;
+    margin-top: 13px;
+    font-size: 12px;
     line-height: 1.34;
   }
 
@@ -1267,8 +1279,8 @@ body.public-page *::after {
   }
 
   .public-page .social-link {
-    width: 43px;
-    height: 43px;
+    width: 42px;
+    height: 42px;
   }
 
   .public-page .subscription-card {
@@ -1277,7 +1289,7 @@ body.public-page *::after {
   }
 
   .public-page .section-title {
-    font-size: 22px;
+    font-size: 21px;
   }
 
   .public-page .secure-note {
@@ -1285,10 +1297,10 @@ body.public-page *::after {
   }
 
   .public-page .plan-button {
-    min-height: 50px;
+    min-height: 49px;
     grid-template-columns: minmax(0, 1fr) max-content;
     border-radius: 11px;
-    padding: 9px 13px;
+    padding: 9px 12px 9px 13px;
     gap: 10px;
     overflow: hidden;
   }
@@ -1298,7 +1310,7 @@ body.public-page *::after {
   }
 
   .public-page .plan-name {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .public-page .plan-price-wrap {
