@@ -12,10 +12,13 @@
 body.public-page {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   background: var(--privacy-bg);
   color: var(--privacy-text);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
   font-size: 16px;
   line-height: 1.35;
   letter-spacing: 0;
@@ -86,8 +89,8 @@ body.public-page *::after {
 }
 
 .public-page .lang-btn {
-  min-width: 48px;
-  height: 32px;
+  min-width: 44px;
+  height: 36px;
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
@@ -102,9 +105,52 @@ body.public-page *::after {
   font-weight: 900;
 }
 
+.public-page .lang-btn:focus,
+.public-page .lang-btn:focus-visible {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
 .public-page .lang-btn span:first-child {
   font-size: 15px;
   line-height: 1;
+}
+
+.public-page .language-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 126px;
+  display: none;
+  padding: 6px;
+  border: 1px solid #e6e8ee;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 16px 34px rgba(15, 23, 42, .12);
+}
+
+.public-page .language-switcher.open .language-menu {
+  display: grid;
+  gap: 4px;
+}
+
+.public-page .language-menu button {
+  height: 34px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #071121;
+  padding: 0 10px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.public-page .language-menu button.active,
+.public-page .language-menu button:hover {
+  background: #fff1e7;
+  color: var(--privacy-orange-strong);
 }
 
 .public-page .page {

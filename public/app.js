@@ -5,6 +5,83 @@ let liveSeconds = 0;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+const LANGUAGE_KEY = 'privacyLanguage';
+const translations = {
+  'pt-BR': {
+    pageTitle: 'Privacy',
+    pageDescription: 'Perfil, assinaturas e conteúdos exclusivos',
+    subscriptions: 'Assinaturas',
+    secureNote: 'Pagamento seguro com acesso imediato após confirmação',
+    postsLabel: 'Postagens',
+    mediaLabel: 'Mídias',
+    filterAll: 'Todos',
+    filterForYou: 'Para Você',
+    filterPhotos: 'Fotos',
+    filterVideos: 'Vídeos',
+    checkoutHeadline: 'Tenha acesso a tudo isso:',
+    accountTitle: 'Crie sua conta para acessar',
+    immediateAccess: 'Acesso imediato após pagamento',
+    promoToday: 'Promoção ativa hoje',
+    liveNow: '● AO VIVO'
+  },
+  en: {
+    pageTitle: 'Privacy',
+    pageDescription: 'Profile, subscriptions and exclusive content',
+    subscriptions: 'Subscriptions',
+    secureNote: 'Secure payment with instant access after confirmation',
+    postsLabel: 'Posts',
+    mediaLabel: 'Media',
+    filterAll: 'All',
+    filterForYou: 'For You',
+    filterPhotos: 'Photos',
+    filterVideos: 'Videos',
+    checkoutHeadline: 'Get access to all this:',
+    accountTitle: 'Create your account to access',
+    immediateAccess: 'Instant access after payment',
+    promoToday: 'Promotion active today',
+    liveNow: '● LIVE'
+  }
+};
+
+function currentLang() {
+  return localStorage.getItem(LANGUAGE_KEY) === 'en' ? 'en' : 'pt-BR';
+}
+
+function t(key, fallback = '') {
+  const lang = currentLang();
+  return translations[lang]?.[key] || translations['pt-BR'][key] || fallback || key;
+}
+
+function polishText(value) {
+  const text = String(value || '');
+  const exact = {
+    '1 mes de acesso': '1 mês de acesso',
+    '3 meses de acesso': '3 meses de acesso',
+    'ACESSO VITALICIO': 'ACESSO VITALÍCIO',
+    'Promocao ativa hoje': 'Promoção ativa hoje',
+    'Sao Paulo': 'São Paulo',
+    'Sorocaba, Sao Paulo': 'Sorocaba, São Paulo',
+    'Mogi das Cruzes, Sao Paulo': 'Mogi das Cruzes, São Paulo',
+    'Midias': 'Mídias',
+    'Para Voce': 'Para Você',
+    'Videos': 'Vídeos',
+    'Codigo PIX copiado.': 'Código PIX copiado.',
+    'Gerando cobranca...': 'Gerando cobrança...',
+    'Detectando pagamento automaticamente...': 'Detectando pagamento automaticamente...',
+    'Aguardando confirmacao...': 'Aguardando confirmação...'
+  };
+  return exact[text] || text
+    .replace(/\bmes\b/gi, (match) => match === 'MES' ? 'MÊS' : 'mês')
+    .replace(/\bvoce\b/gi, 'você')
+    .replace(/\bvideos\b/gi, 'vídeos')
+    .replace(/\bmidias\b/gi, 'mídias')
+    .replace(/\bpromocao\b/gi, 'promoção')
+    .replace(/\bconfirmacao\b/gi, 'confirmação')
+    .replace(/\bconteudos\b/gi, 'conteúdos')
+    .replace(/\baudios\b/gi, 'áudios')
+    .replace(/\be\b propriedade\b/gi, 'é propriedade')
+    .replace(/\bSao Paulo\b/g, 'São Paulo');
+}
 
 function brl(value) {
   return Number(value || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -19,7 +96,7 @@ function toast(message) {
 
 function setText(selector, value) {
   const el = $(selector);
-  if (el) el.textContent = value || '';
+  if (el) el.textContent = polishText(value);
 }
 
 function setImage(selector, src) {
@@ -34,7 +111,19 @@ function setBackground(selector, src) {
 
 function setHtml(selector, value) {
   const el = $(selector);
-  if (el) el.innerHTML = escapeHtml(value || '').replace(/\n/g, '<br>');
+  if (el) el.innerHTML = escapeHtml(polishText(value)).replace(/\n/g, '<br>');
+}
+
+function applyLanguage() {
+  const lang = currentLang();
+  document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
+  $$('[data-i18n]').forEach((el) => {
+    el.textContent = t(el.dataset.i18n, el.textContent);
+  });
+  $$('.lang-current').forEach((el) => { el.textContent = lang === 'en' ? 'EN' : 'PT'; });
+  $$('[data-lang-option]').forEach((button) => {
+    button.classList.toggle('active', button.dataset.langOption === lang);
+  });
 }
 
 function parseLive(value) {
@@ -122,7 +211,7 @@ function privacyPlanButton(plan, className) {
   return `
     <button class="${className}${subscriptionClass}${featured}" data-plan-id="${escapeHtml(plan.id)}" type="button">
       ${plan.featured ? '<span class="best-choice" aria-hidden="true">&#9733; MELHOR ESCOLHA</span>' : ''}
-      <span class="plan-name">${escapeHtml(plan.name)}</span>
+      <span class="plan-name">${escapeHtml(polishText(plan.name))}</span>
       <span class="plan-price plan-price-wrap">
         ${plan.oldPrice || plan.discount ? `<span class="strike-stack">${plan.discount ? `<span class="plan-discount ${discountClass}">${escapeHtml(plan.discount)}</span>` : ''}${plan.oldPrice ? `<span class="strike">${brl(plan.oldPrice)}</span>` : ''}</span>` : ''}
         <strong>${brl(plan.price)}</strong>
@@ -131,7 +220,7 @@ function privacyPlanButton(plan, className) {
 }
 
 function promotionMarkup() {
-  return '<div class="subscription-today subscription-today-before-vitalicio"><span aria-hidden="true">&#9889;</span> Promocao ativa hoje</div>';
+  return `<div class="subscription-today subscription-today-before-vitalicio"><span aria-hidden="true">&#9889;</span> ${escapeHtml(t('promoToday'))}</div>`;
 }
 
 function statIcon(name) {
@@ -363,6 +452,29 @@ function bindUi() {
     navigator.clipboard?.writeText(code).then(() => toast('Codigo PIX copiado.'));
   });
   $('#accessNow').addEventListener('click', closeCheckout);
+  const languageSwitcher = $('.language-switcher');
+  const languageButton = $('#languageButton');
+  if (languageSwitcher && languageButton) {
+    languageButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const open = languageSwitcher.classList.toggle('open');
+      languageButton.setAttribute('aria-expanded', String(open));
+    });
+    $$('[data-lang-option]').forEach((option) => {
+      option.addEventListener('click', (event) => {
+        event.stopPropagation();
+        localStorage.setItem(LANGUAGE_KEY, option.dataset.langOption || 'pt-BR');
+        languageSwitcher.classList.remove('open');
+        languageButton.setAttribute('aria-expanded', 'false');
+        applyLanguage();
+        renderPlans();
+      });
+    });
+    document.addEventListener('click', () => {
+      languageSwitcher.classList.remove('open');
+      languageButton.setAttribute('aria-expanded', 'false');
+    });
+  }
   $$('.tab-button').forEach((button) => button.addEventListener('click', () => {
     $$('.tab-button').forEach((item) => item.classList.toggle('active', item === button));
     if (button.dataset.tab === 'media') {
@@ -376,10 +488,12 @@ async function init() {
   bindUi();
   const response = await fetch('/api/site');
   site = await response.json();
+  applyLanguage();
   renderProfile();
   renderPlans();
   renderGallery();
   renderCheckoutCopy();
+  applyLanguage();
 }
 
 init().catch((error) => {

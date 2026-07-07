@@ -8,17 +8,21 @@
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/original-public.css">
 </head>
-<body class="public-page" data-gateway="pushinpay">
+<body class="public-page" data-gateway="pushinpay" data-page-title-i18n="pageTitle" data-page-description-i18n="pageDescription">
   <div class="site-scroll" id="siteScroll">
     <header class="topbar">
       <div class="topbar-inner">
         <img id="logo" class="brand-logo" width="269" height="56" src="" alt="Privacy" decoding="async" loading="eager">
         <div class="topbar-actions">
           <div class="language-switcher">
-            <button class="lang-btn" id="languageButton" type="button" aria-label="Idioma / Language">
+            <button class="lang-btn" id="languageButton" type="button" aria-label="Idioma / Language" aria-expanded="false">
               <span aria-hidden="true">🌐</span>
               <span class="lang-current">PT</span>
             </button>
+            <div class="language-menu" id="languageMenu" aria-label="Escolha o idioma">
+              <button type="button" data-lang-option="pt-BR">PT-BR</button>
+              <button type="button" data-lang-option="en">English</button>
+            </div>
           </div>
         </div>
       </div>
@@ -66,8 +70,8 @@
 
           <section class="subscription-card" aria-label="Assinaturas">
             <div class="subscription-head">
-              <h2 class="section-title">Assinaturas</h2>
-              <span class="secure-note">Pagamento seguro com acesso imediato apos confirmacao</span>
+              <h2 class="section-title" data-i18n="subscriptions">Assinaturas</h2>
+              <span class="secure-note" data-i18n="secureNote">Pagamento seguro com acesso imediato apos confirmacao</span>
             </div>
             <div id="plans" class="plan-list subscription-plan-list"></div>
           </section>
@@ -78,8 +82,8 @@
 
       <section class="content-area">
         <div class="tabs" role="tablist">
-          <button class="tab-button active" type="button" data-tab="posts"><span id="postsCount">594</span> Postagens</button>
-          <button class="tab-button" type="button" data-tab="media"><span id="mediaCount">647</span> Midias</button>
+          <button class="tab-button active" type="button" data-tab="posts"><span id="postsCount">594</span> <span data-i18n="postsLabel">Postagens</span></button>
+          <button class="tab-button" type="button" data-tab="media"><span id="mediaCount">647</span> <span data-i18n="mediaLabel">Midias</span></button>
         </div>
 
         <div class="tab-panel" id="panel-posts">
@@ -87,10 +91,10 @@
 
           <div class="gallery-card" id="video-12">
             <div class="filter-row">
-              <button class="filter-button active" type="button" data-filter="all">Todos</button>
-              <button class="filter-button" type="button" data-filter="foryou">Para Voce</button>
-              <button class="filter-button" type="button" data-filter="photos">Fotos</button>
-              <button class="filter-button" type="button" data-filter="videos">Videos</button>
+              <button class="filter-button active" type="button" data-filter="all" data-i18n="filterAll">Todos</button>
+              <button class="filter-button" type="button" data-filter="foryou" data-i18n="filterForYou">Para Voce</button>
+              <button class="filter-button" type="button" data-filter="photos" data-i18n="filterPhotos">Fotos</button>
+              <button class="filter-button" type="button" data-filter="videos" data-i18n="filterVideos">Videos</button>
             </div>
             <div id="gallery" class="media-grid"></div>
           </div>
@@ -130,7 +134,7 @@
             </div>
           </div>
 
-          <p class="immediate-access">Acesso imediato apos pagamento</p>
+          <p class="immediate-access" data-i18n="immediateAccess">Acesso imediato apos pagamento</p>
           <button class="primary-btn" id="generatePix" type="button">Gerar PIX</button>
           <small id="pushinPayNotice" class="processor-note"></small>
         </section>
