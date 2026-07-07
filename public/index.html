@@ -6,144 +6,181 @@
   <title>Privacy</title>
   <meta name="description" content="Perfil, assinaturas e conteudos exclusivos">
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/original-public.css">
 </head>
-<body class="public-page">
-  <header class="topbar">
-    <div class="topbar-inner">
-    <img id="logo" class="brand-logo topbar-logo" src="" alt="Logo">
-    <div class="topbar-actions">
-      <span class="language-pill" aria-label="Idioma">PT</span>
-      <button class="login-pill" type="button" data-open-login>Entrar</button>
-    </div>
-    </div>
-  </header>
-
-  <main class="page-shell page">
-    <section class="profile-shell">
-      <div id="banner" class="banner"><img id="bannerImage" src="" alt="Capa"></div>
-      <article class="profile-card">
-        <div class="stats" id="stats"></div>
-        <div class="avatar-stack avatar-wrap">
-          <div class="avatar-ring"><img id="avatar" src="" alt="Avatar"></div>
-          <span class="live-badge"><strong>AO VIVO</strong> <span id="liveTime">07:19</span></span>
-        </div>
-        <div class="name-row">
-          <h1 id="profileName">Carregando</h1>
-          <img id="verifiedIcon" class="verified-icon" src="" alt="Verificado">
-        </div>
-        <strong id="handle" class="handle"></strong>
-        <p id="bio" class="bio"></p>
-        <p id="location" class="location"></p>
-        <div class="social-links">
-          <a id="instagram" class="social-link" href="#" target="_blank" rel="noopener">IG</a>
-          <a id="threads" class="social-link" href="#" target="_blank" rel="noopener">TH</a>
-        </div>
-
-        <section class="subscription-card">
-          <div class="subscription-head">
-            <h2 class="section-title">Assinaturas</h2>
-            <span class="secure-note">Pagamento seguro com acesso imediato apos confirmacao</span>
+<body class="public-page" data-gateway="pushinpay">
+  <div class="site-scroll" id="siteScroll">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <img id="logo" class="brand-logo" width="269" height="56" src="" alt="Privacy" decoding="async" loading="eager">
+        <div class="topbar-actions">
+          <div class="language-switcher">
+            <button class="lang-btn" id="languageButton" type="button" aria-label="Idioma / Language">
+              <span aria-hidden="true">🌐</span>
+              <span class="lang-current">PT</span>
+            </button>
           </div>
-          <div id="plans" class="plan-list subscription-plan-list"></div>
-          <p class="today-note"><span>⚡</span> Promocao ativa hoje</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <section>
+        <div class="banner">
+          <img id="bannerImage" width="1200" height="142" src="" alt="Profile cover banner" decoding="async" loading="eager" fetchpriority="high">
+        </div>
+
+        <div class="profile-card">
+          <div class="stats" id="stats" aria-label="Estatisticas"></div>
+
+          <div class="avatar-wrap live-checkout-trigger" data-open-checkout role="button" tabindex="0" aria-label="Abrir planos de assinatura">
+            <div class="avatar-ring">
+              <img id="avatar" width="720" height="720" src="" alt="User profile avatar" decoding="async" loading="eager">
+            </div>
+            <div class="live-badge">
+              <strong>● AO VIVO</strong>
+              <span id="liveTime">07:19</span>
+            </div>
+          </div>
+
+          <div class="name-row">
+            <h1 id="profileName">Privacy</h1>
+            <img id="verifiedIcon" class="verified-icon" width="128" height="128" src="" alt="Verificado" decoding="async" loading="eager">
+          </div>
+          <div id="handle" class="handle"></div>
+
+          <div id="bio" class="bio"></div>
+
+          <div class="location" aria-label="Localizacao">
+            <svg class="location-svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 21s7-4.7 7-11a7 7 0 1 0-14 0c0 6.3 7 11 7 11Z"></path>
+              <circle cx="12" cy="10" r="2.5"></circle>
+            </svg>
+            <span id="locationText"></span>
+          </div>
+
+          <div class="social-links" aria-label="Redes sociais">
+            <a id="instagram" class="social-link external-social-link" href="#" target="_blank" rel="noopener noreferrer" title="Instagram" aria-label="Instagram"></a>
+            <a id="threads" class="social-link external-social-link" href="#" target="_blank" rel="noopener noreferrer" title="Threads" aria-label="Threads"></a>
+          </div>
+
+          <section class="subscription-card" aria-label="Assinaturas">
+            <div class="subscription-head">
+              <h2 class="section-title">Assinaturas</h2>
+              <span class="secure-note">Pagamento seguro com acesso imediato apos confirmacao</span>
+            </div>
+            <div id="plans" class="plan-list subscription-plan-list"></div>
+          </section>
+
           <p id="legalNotice" class="legal-note"></p>
-        </section>
-      </article>
-    </section>
-
-    <section class="content-area">
-      <div class="tabs" aria-label="Conteudo" role="tablist">
-        <button class="tab-button active" data-tab="posts" type="button"><span id="postsCount">594</span> Postagens</button>
-        <button class="tab-button" data-tab="media" type="button"><span id="mediaCount">647</span> Midias</button>
-      </div>
-
-    <section class="locked-post" data-open-checkout>
-      <div class="locked-post-main">
-        <img id="previewImage" src="" alt="Preview bloqueado">
-        <div class="lock-layer">
-          <span class="lock-icon">●</span>
-          <strong>Conteudo exclusivo</strong>
-          <small>Assine para liberar fotos, videos e mensagens.</small>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="feed-card gallery-card">
-      <header class="feed-head">
-        <div class="feed-profile">
-          <img id="feedAvatar" src="" alt="Avatar">
-          <div><strong id="feedName"></strong><span id="feedHandle"></span></div>
+      <section class="content-area">
+        <div class="tabs" role="tablist">
+          <button class="tab-button active" type="button" data-tab="posts"><span id="postsCount">594</span> Postagens</button>
+          <button class="tab-button" type="button" data-tab="media"><span id="mediaCount">647</span> Midias</button>
         </div>
-        <button class="dots" type="button">⋮</button>
-      </header>
-      <div class="filter-row">
-        <button class="filter-button active" data-filter="all" type="button">Todos</button>
-        <button class="filter-button" data-filter="foryou" type="button">Para Voce</button>
-        <button class="filter-button" data-filter="photos" type="button">Fotos</button>
-        <button class="filter-button" data-filter="videos" type="button">Videos</button>
-      </div>
-      <div id="gallery" class="gallery-grid media-grid"></div>
-    </section>
-    </section>
-  </main>
 
-  <div id="checkoutModal" class="modal" aria-hidden="true">
-    <div class="modal-panel checkout-panel" role="dialog" aria-modal="true">
-      <button id="closeCheckout" class="modal-close" type="button">×</button>
+        <div class="tab-panel" id="panel-posts">
+          <article class="locked-post" data-open-checkout></article>
+
+          <div class="gallery-card" id="video-12">
+            <div class="filter-row">
+              <button class="filter-button active" type="button" data-filter="all">Todos</button>
+              <button class="filter-button" type="button" data-filter="foryou">Para Voce</button>
+              <button class="filter-button" type="button" data-filter="photos">Fotos</button>
+              <button class="filter-button" type="button" data-filter="videos">Videos</button>
+            </div>
+            <div id="gallery" class="media-grid"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="checkoutModal" aria-hidden="true">
+    <div class="checkout" role="dialog" aria-modal="true" aria-labelledby="checkoutHeadline">
+      <button class="checkout-close" id="closeCheckout" type="button" aria-label="Fechar">×</button>
+
+      <div class="checkout-banner" id="checkoutBanner"></div>
       <div class="checkout-profile">
-        <div id="checkoutBanner" class="checkout-banner"></div>
-        <img id="checkoutAvatar" class="checkout-avatar" src="" alt="Avatar">
-        <h2 id="checkoutName"></h2>
-        <span id="checkoutHandle"></span>
+        <img id="checkoutAvatar" width="720" height="720" src="" alt="Avatar" decoding="async" loading="lazy">
+        <div>
+          <strong><span id="checkoutName"></span></strong>
+          <div id="checkoutHandle"></div>
+        </div>
       </div>
 
-      <section class="checkout-step active" id="step-plan">
-        <h3 id="checkoutHeadline">Tenha acesso a tudo isso:</h3>
-        <ul id="benefits" class="benefit-list"></ul>
-        <div id="checkoutPlans" class="checkout-plans"></div>
-        <p id="selectedPlanCopy" class="selected-copy"></p>
-        <strong id="selectedPlanPrice" class="selected-price"></strong>
-        <h3 id="accountTitle">Crie sua conta para acessar</h3>
-        <div class="field-grid">
-          <input id="customerName" type="text" placeholder="Nome">
-          <input id="customerEmail" type="email" placeholder="Email">
-          <input id="customerPhone" type="tel" placeholder="WhatsApp">
-          <input id="customerDocument" type="text" placeholder="CPF">
-        </div>
-        <button id="generatePix" class="primary-button" type="button">Gerar PIX</button>
-        <small id="pushinPayNotice" class="processor-note"></small>
-      </section>
+      <div class="checkout-body">
+        <section class="checkout-step active" id="step-plan">
+          <h2 class="checkout-title" id="checkoutHeadline">Tenha acesso a tudo isso:</h2>
+          <ul id="benefits" class="benefits"></ul>
+          <div id="checkoutPlans" class="checkout-plans" aria-label="Escolha seu plano"></div>
+          <p id="selectedPlanCopy" class="selected-copy"></p>
+          <div id="selectedPlanPrice" class="selected-price"></div>
 
-      <section class="checkout-step" id="step-generating">
-        <div class="loader"></div>
-        <h3>Gerando cobranca...</h3>
-        <p id="processingText">Estamos preparando seu acesso VIP seguro.</p>
-      </section>
+          <div class="checkout-account">
+            <div id="accountTitle" class="checkout-account-title">Crie sua conta para acessar</div>
+            <div class="field-grid">
+              <input id="customerName" type="text" autocomplete="name" placeholder="Nome">
+              <input id="customerEmail" type="email" autocomplete="email" placeholder="Email">
+              <input id="customerPhone" type="tel" autocomplete="tel" placeholder="WhatsApp">
+              <input id="customerDocument" type="text" inputmode="numeric" placeholder="CPF">
+            </div>
+          </div>
 
-      <section class="checkout-step" id="step-payment">
-        <span class="payment-state">AGUARDANDO PAGAMENTO</span>
-        <h3>PIX gerado</h3>
-        <img id="qrImage" class="qr-image" src="" alt="QR Code PIX">
-        <div class="charge-summary">
-          <span>Plano selecionado <strong id="chargePlanName"></strong></span>
-          <span>Valor <strong id="chargePlanValue"></strong></span>
-        </div>
-        <code id="pixCode" class="pix-code"></code>
-        <button id="copyPix" class="secondary-button" type="button">Copiar codigo PIX</button>
-        <button id="verifyPaymentNow" class="link-button" type="button">Ja paguei, verificar agora</button>
-        <p id="autoCheckText" class="muted">Detectando pagamento automaticamente...</p>
-      </section>
+          <p class="immediate-access">Acesso imediato apos pagamento</p>
+          <button class="primary-btn" id="generatePix" type="button">Gerar PIX</button>
+          <small id="pushinPayNotice" class="processor-note"></small>
+        </section>
 
-      <section class="checkout-step" id="step-success">
-        <div class="success-mark">✓</div>
-        <h3 id="successTitle">PAGAMENTO CONFIRMADO</h3>
-        <p id="successText">Seu acesso foi liberado. Veja todo o conteudo aqui no site.</p>
-        <button id="accessNow" class="primary-button" type="button">Acessar conteudo agora</button>
-      </section>
+        <section class="checkout-step" id="step-generating">
+          <div class="checkout-loading">
+            <div class="spinner"></div>
+            <h2>Gerando cobranca...</h2>
+            <p id="processingText">Estamos preparando seu acesso VIP seguro.</p>
+          </div>
+        </section>
+
+        <section class="checkout-step" id="step-payment">
+          <div class="qr-box">
+            <img id="qrImage" src="" width="260" height="260" alt="QR Code PIX" decoding="async">
+          </div>
+          <p class="payment-state">AGUARDANDO PAGAMENTO</p>
+          <div class="charge-summary" id="chargeSummary" aria-live="polite">
+            <div class="charge-summary-title">PIX gerado</div>
+            <div class="charge-summary-row">
+              <span>Plano selecionado</span>
+              <strong id="chargePlanName"></strong>
+            </div>
+            <div class="charge-summary-row">
+              <span>Valor</span>
+              <strong id="chargePlanValue"></strong>
+            </div>
+          </div>
+          <div class="pix-code" id="pixCode"></div>
+          <button class="primary-btn" id="copyPix" type="button">Copiar codigo PIX</button>
+          <div class="status-line">
+            <span class="spinner"></span>
+            <span id="autoCheckText">Detectando pagamento automaticamente...</span>
+          </div>
+          <button class="verify-payment-btn" id="verifyPaymentNow" type="button">Ja paguei, verificar agora</button>
+        </section>
+
+        <section class="checkout-step" id="step-success">
+          <div class="checkout-success">
+            <div class="success-icon">✓</div>
+            <h2 id="successTitle">PAGAMENTO CONFIRMADO</h2>
+            <p id="successText">Seu acesso foi liberado. Veja todo o conteudo aqui no site.</p>
+            <button id="accessNow" class="primary-btn" type="button">Acessar conteudo agora</button>
+          </div>
+        </section>
+      </div>
     </div>
   </div>
 
-  <div id="toast" class="toast"></div>
+  <div class="toast" id="toast"></div>
   <script src="/app.js"></script>
 </body>
 </html>

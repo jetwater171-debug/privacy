@@ -32,6 +32,11 @@ function setBackground(selector, src) {
   if (el) el.style.backgroundImage = src ? `url("${src}")` : '';
 }
 
+function setHtml(selector, value) {
+  const el = $(selector);
+  if (el) el.innerHTML = escapeHtml(value || '').replace(/\n/g, '<br>');
+}
+
 function parseLive(value) {
   const [m, s] = String(value || '07:19').split(':').map(Number);
   return (Number.isFinite(m) ? m : 7) * 60 + (Number.isFinite(s) ? s : 19);
@@ -60,15 +65,24 @@ function renderProfile() {
   setText('#handle', site.profile.handle);
   setText('#feedHandle', site.profile.handle);
   setText('#checkoutHandle', site.profile.handle);
-  setText('#bio', site.profile.bio);
-  setText('#location', site.profile.location);
+  setHtml('#bio', site.profile.bio);
+  setText('#locationText', site.profile.location);
   setText('#legalNotice', site.profile.legalNotice);
   setText('#postsCount', site.profile.stats?.posts || '0');
   setText('#mediaCount', site.profile.stats?.media || '0');
-  $('#instagram').href = site.profile.instagram || '#';
-  $('#threads').href = site.profile.threads || '#';
-  $('#instagram').innerHTML = socialIcon('instagram');
-  $('#threads').innerHTML = socialIcon('threads');
+  const instagram = $('#instagram');
+  const threads = $('#threads');
+  if (instagram) {
+    instagram.href = site.profile.instagram || '#';
+    instagram.innerHTML = socialIcon('instagram');
+  }
+  if (threads) {
+    threads.href = site.profile.threads || '#';
+    threads.innerHTML = socialIcon('threads');
+  }
+
+  const verified = $('#verifiedIcon');
+  if (verified) verified.hidden = !site.profile.verifiedIcon;
 
   const stats = site.profile.stats || {};
   $('#stats').innerHTML = [
@@ -104,12 +118,13 @@ function planButton(plan, className) {
 function privacyPlanButton(plan, className) {
   const featured = plan.featured ? ' featured' : '';
   const subscriptionClass = className === 'plan-button' ? ' subscription-plan-button' : '';
+  const discountClass = plan.featured ? 'discount-featured' : 'discount-muted';
   return `
     <button class="${className}${subscriptionClass}${featured}" data-plan-id="${escapeHtml(plan.id)}" type="button">
-      ${plan.featured ? '<span class="best-choice">MELHOR ESCOLHA</span>' : ''}
+      ${plan.featured ? '<span class="best-choice" aria-hidden="true">&#9733; MELHOR ESCOLHA</span>' : ''}
       <span class="plan-name">${escapeHtml(plan.name)}</span>
       <span class="plan-price plan-price-wrap">
-        ${plan.oldPrice || plan.discount ? `<span class="strike-stack">${plan.discount ? `<span class="discount plan-discount">${escapeHtml(plan.discount)}</span>` : ''}${plan.oldPrice ? `<span class="strike">${brl(plan.oldPrice)}</span>` : ''}</span>` : ''}
+        ${plan.oldPrice || plan.discount ? `<span class="strike-stack">${plan.discount ? `<span class="plan-discount ${discountClass}">${escapeHtml(plan.discount)}</span>` : ''}${plan.oldPrice ? `<span class="strike">${brl(plan.oldPrice)}</span>` : ''}</span>` : ''}
         <strong>${brl(plan.price)}</strong>
       </span>
     </button>`;
@@ -181,7 +196,7 @@ function renderGallery() {
   $('#gallery').innerHTML = gallery.map((item) => `
     <button class="gallery-tile media-tile" data-open-checkout data-category="${item.category || 'all'}" data-type="${item.type || 'photo'}" type="button">
       <img src="${item.src}" alt="${item.title || 'Midia exclusiva'}" loading="lazy">
-      <span class="tile-lock" aria-hidden="true"></span>
+      <span class="tile-lock" aria-hidden="true">${lockSvg()}</span>
     </button>
   `).join('');
   $$('[data-open-checkout]').forEach((el) => el.addEventListener('click', () => openCheckout(selectedPlan?.id)));
@@ -348,6 +363,12 @@ function bindUi() {
     navigator.clipboard?.writeText(code).then(() => toast('Codigo PIX copiado.'));
   });
   $('#accessNow').addEventListener('click', closeCheckout);
+  $$('.tab-button').forEach((button) => button.addEventListener('click', () => {
+    $$('.tab-button').forEach((item) => item.classList.toggle('active', item === button));
+    if (button.dataset.tab === 'media') {
+      document.querySelector('.gallery-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }));
   $$('.filter-button').forEach((button) => button.addEventListener('click', () => filterGallery(button.dataset.filter || 'all')));
 }
 
