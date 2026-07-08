@@ -21,7 +21,6 @@ const translations = {
     checkoutHeadline: 'Tenha acesso a tudo isso:',
     accountTitle: 'Crie sua conta para acessar',
     immediateAccess: 'Acesso imediato após pagamento',
-    promoToday: 'Promoção ativa hoje',
     liveNow: '● AO VIVO'
   },
   en: {
@@ -38,7 +37,6 @@ const translations = {
     checkoutHeadline: 'Get access to all this:',
     accountTitle: 'Create your account to access',
     immediateAccess: 'Instant access after payment',
-    promoToday: 'Promotion active today',
     liveNow: '● LIVE'
   }
 };
@@ -58,7 +56,6 @@ function polishText(value) {
     '1 mes de acesso': '1 mês de acesso',
     '3 meses de acesso': '3 meses de acesso',
     'ACESSO VITALICIO': 'ACESSO VITALÍCIO',
-    'Promocao ativa hoje': 'Promoção ativa hoje',
     'Sao Paulo': 'São Paulo',
     'Sorocaba, Sao Paulo': 'Sorocaba, São Paulo',
     'Mogi das Cruzes, Sao Paulo': 'Mogi das Cruzes, São Paulo',
@@ -192,7 +189,7 @@ function renderProfile() {
 function renderPlans() {
   const plans = (site.plans || []).filter((plan) => plan.active !== false);
   selectedPlan = plans[0] || null;
-  const markup = plans.map((plan, index) => `${index === 2 || plan.featured ? promotionMarkup() : ''}${planButton(plan, 'plan-button')}`).join('');
+  const markup = plans.map((plan) => planButton(plan, 'plan-button')).join('');
   $('#plans').innerHTML = markup;
   $('#checkoutPlans').innerHTML = plans.map((plan) => checkoutPlanButton(plan)).join('');
   $$('.plan-button').forEach((button) => button.addEventListener('click', () => openCheckout(button.dataset.planId)));
@@ -233,10 +230,6 @@ function privacyPlanButton(plan, className) {
         <strong>${brl(plan.price)}</strong>
       </span>
     </button>`;
-}
-
-function promotionMarkup() {
-  return `<div class="subscription-today subscription-today-before-vitalicio"><span aria-hidden="true">&#9889;</span> ${escapeHtml(t('promoToday'))}</div>`;
 }
 
 function statIcon(name) {
