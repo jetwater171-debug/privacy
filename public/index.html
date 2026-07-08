@@ -123,18 +123,24 @@
           <div id="checkoutPlans" class="checkout-plans" aria-label="Escolha seu plano"></div>
           <p id="selectedPlanCopy" class="selected-copy"></p>
           <div id="selectedPlanPrice" class="selected-price"></div>
+          <p class="immediate-access" data-i18n="immediateAccess">Acesso imediato após pagamento</p>
+          <button class="primary-btn" id="continueCheckout" type="button">Gerar PIX</button>
+        </section>
 
+        <section class="checkout-step" id="step-account">
+          <h2 class="checkout-title" id="accountTitle">Crie sua conta para acessar</h2>
+          <p class="account-subtitle">Informe seus dados para gerar o PIX e liberar o acesso.</p>
           <div class="checkout-account">
-            <div id="accountTitle" class="checkout-account-title">Crie sua conta para acessar</div>
             <div class="field-grid">
               <input id="customerName" type="text" autocomplete="name" placeholder="Nome">
               <input id="customerEmail" type="email" autocomplete="email" placeholder="Email">
               <input id="customerPhone" type="tel" autocomplete="tel" placeholder="WhatsApp">
-              <input id="customerDocument" type="text" inputmode="numeric" placeholder="CPF">
             </div>
           </div>
-
-          <p class="immediate-access" data-i18n="immediateAccess">Acesso imediato apos pagamento</p>
+          <div class="account-selected-plan">
+            <span id="accountPlanName"></span>
+            <strong id="accountPlanPrice"></strong>
+          </div>
           <button class="primary-btn" id="generatePix" type="button">Gerar PIX</button>
           <small id="pushinPayNotice" class="processor-note"></small>
         </section>

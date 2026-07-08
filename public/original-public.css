@@ -1467,3 +1467,731 @@ body.public-page *::after {
     border-radius: 18px;
   }
 }
+
+/* Checkout offer modal parity with the original flow. */
+.public-page .modal {
+  background: rgba(0,0,0,.68);
+}
+
+.public-page .checkout {
+  width: min(100%, 440px);
+  max-height: min(94vh, 820px);
+  border-radius: 16px;
+  background: #050505;
+  color: #fff;
+  box-shadow: 0 26px 80px rgba(0,0,0,.48);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.38) transparent;
+}
+
+.public-page .checkout-close {
+  right: 13px;
+  top: 13px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 27px;
+}
+
+.public-page .checkout-banner {
+  position: relative;
+  height: 116px;
+}
+
+.public-page .checkout-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.06) 0%, rgba(0,0,0,.58) 72%, #050505 100%);
+}
+
+.public-page .checkout-profile {
+  position: relative;
+  z-index: 1;
+  margin-top: -40px;
+  padding: 0 24px 26px;
+  border-bottom: 0;
+}
+
+.public-page .checkout-profile img {
+  width: 54px;
+  height: 54px;
+  border: 0;
+}
+
+.public-page .checkout-profile strong {
+  font-size: 20px;
+  line-height: 1.05;
+}
+
+.public-page .checkout-profile div div {
+  margin-top: 4px;
+  color: #fff;
+  font-weight: 850;
+}
+
+.public-page .checkout-body {
+  padding: 0 24px 28px;
+}
+
+.public-page .checkout-step.active {
+  gap: 14px;
+}
+
+.public-page .checkout-title {
+  margin: 0 0 10px;
+  text-align: center;
+  font-size: 20px;
+  line-height: 1.12;
+}
+
+.public-page #step-account .checkout-title {
+  text-align: left;
+  font-size: 22px;
+}
+
+.public-page .benefits {
+  gap: 12px;
+  margin: 0 0 12px;
+}
+
+.public-page .benefits li {
+  align-items: flex-start;
+  gap: 10px;
+  color: #fff;
+  font-size: 15px;
+  line-height: 1.28;
+  font-weight: 600;
+}
+
+.public-page .benefits li::before {
+  content: "✓";
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 850;
+}
+
+.public-page .checkout-plans {
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.public-page .checkout-plan {
+  min-height: 54px;
+  border: 1px solid rgba(255,122,54,.86);
+  border-radius: 14px;
+  background: #0b0b0b;
+  color: #fff;
+  padding: 9px 14px;
+  box-shadow: none;
+}
+
+.public-page .checkout-plan.active {
+  border-color: #ff8239;
+  background: linear-gradient(180deg, #ffbf8a 0%, #ffb175 100%);
+  color: #000;
+}
+
+.public-page .checkout-plan:not(.active) .plan-name,
+.public-page .checkout-plan:not(.active) .plan-price-wrap strong {
+  color: #fff;
+}
+
+.public-page .checkout-plan.active .plan-name,
+.public-page .checkout-plan.active .plan-price-wrap strong {
+  color: #000;
+}
+
+.public-page .checkout-plan .plan-price-wrap {
+  min-width: 128px;
+}
+
+.public-page .checkout-plan .plan-price-wrap strong {
+  font-size: 15px;
+}
+
+.public-page .selected-copy {
+  margin: 10px 0 -3px;
+  color: #aaa;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.public-page .selected-price {
+  font-size: 44px;
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+
+.public-page .account-subtitle {
+  margin: -8px 0 2px;
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 650;
+}
+
+.public-page .field-grid {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.public-page .field-grid input {
+  height: 48px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 10px;
+  background: #1f1f1f;
+  color: #fff;
+  padding: 0 14px;
+  font-size: 15px;
+}
+
+.public-page .immediate-access {
+  margin: -3px 0 4px;
+  color: #21e765;
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.public-page .primary-btn,
+.public-page .primary-button {
+  min-height: 59px;
+  border-radius: 999px;
+  background: #ff7a36;
+  color: #000;
+  font-size: 17px;
+}
+
+.public-page .account-selected-plan {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid rgba(255,122,54,.62);
+  border-radius: 12px;
+  background: rgba(255,122,54,.08);
+  padding: 12px 14px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.public-page .account-selected-plan strong {
+  color: #ffbf8a;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .public-page .checkout {
+    width: min(100%, 440px);
+    border-radius: 16px;
+  }
+
+  .public-page .checkout-body,
+  .public-page .checkout-profile {
+    padding-left: 22px;
+    padding-right: 22px;
+  }
+}
+
+/* Final checkout parity layer: original modal proportions and two-step PIX flow. */
+body.public-page .modal {
+  align-items: center;
+  justify-content: center;
+  place-items: unset;
+  padding: 14px;
+  background: rgba(0,0,0,.72);
+  overflow: hidden;
+}
+
+body.public-page .modal.active {
+  display: flex;
+}
+
+body.public-page .checkout {
+  width: min(100%, 440px);
+  max-height: calc(100vh - 28px);
+  max-height: calc(100dvh - 28px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  border-radius: 24px;
+  background: #000;
+  color: #fff;
+  box-shadow: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.36) transparent;
+}
+
+body.public-page .checkout-close {
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0,0,0,.45);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+}
+
+body.public-page .checkout-banner {
+  position: relative;
+  height: 100px;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+}
+
+body.public-page .checkout-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #000, rgba(0,0,0,.35), transparent);
+}
+
+body.public-page .checkout-profile {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: -28px;
+  padding: 0 24px;
+  border-bottom: 0;
+}
+
+body.public-page .checkout-profile img {
+  position: relative;
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  border: 4px solid #000;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+body.public-page .checkout-profile strong {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  font-size: 18px;
+  line-height: 1.1;
+  text-shadow: 0 1px 10px rgba(0,0,0,.75);
+}
+
+body.public-page .checkout-profile > div {
+  margin-top: 18px;
+  border-radius: 14px;
+  background: rgba(0,0,0,.35);
+  padding: 7px 10px;
+  backdrop-filter: blur(6px);
+}
+
+body.public-page .checkout-profile > div > div {
+  margin-top: 4px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  text-shadow: 0 1px 10px rgba(0,0,0,.75);
+}
+
+body.public-page .checkout-body {
+  padding: 26px 24px 30px;
+}
+
+body.public-page .checkout-step.active {
+  display: grid;
+  gap: 0;
+}
+
+body.public-page .checkout-title {
+  margin: 0 0 22px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.2;
+  font-weight: 950;
+}
+
+body.public-page .benefits {
+  display: grid;
+  gap: 14px;
+  margin: 20px 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+body.public-page .benefits li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: #eee;
+  font-size: 15px;
+  line-height: 1.32;
+  font-weight: 600;
+}
+
+body.public-page .benefits li::before {
+  content: "\2713";
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+body.public-page .checkout-plans {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 22px;
+}
+
+body.public-page .checkout-plan {
+  display: flex;
+  width: 100%;
+  min-height: 54px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 16px;
+  background: #111;
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  box-shadow: none;
+}
+
+body.public-page .checkout-plan-copy {
+  display: grid;
+  min-width: 0;
+  flex: 1 1 auto;
+  gap: 2px;
+}
+
+body.public-page .checkout-plan.active {
+  border-color: var(--privacy-orange);
+  background: linear-gradient(90deg, #f7af76 0%, #f9c19d 100%);
+  color: #000;
+}
+
+body.public-page .checkout-plan .plan-name {
+  display: grid;
+  gap: 2px;
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.15;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+body.public-page .checkout-plan .plan-price-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  min-width: 150px;
+  justify-items: end;
+  text-align: right;
+  color: inherit;
+}
+
+body.public-page .checkout-plan .plan-price-wrap strong {
+  color: inherit;
+  font-size: 14px;
+  line-height: 1.15;
+}
+
+body.public-page .checkout-plan .plan-discount,
+body.public-page .checkout-plan .strike {
+  color: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: .72;
+}
+
+body.public-page .checkout-plan .strike-stack {
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  line-height: 1;
+}
+
+body.public-page .checkout-plan .discount-muted,
+body.public-page .checkout-plan .discount-featured,
+body.public-page .checkout-plan .best-choice {
+  position: static;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  padding: 0;
+  box-shadow: none;
+}
+
+body.public-page .checkout-plan .best-choice {
+  display: inline-flex;
+  width: max-content;
+  height: auto;
+  font-size: 9px;
+  line-height: 1;
+}
+
+body.public-page .selected-copy {
+  margin: 0;
+  color: #aaa;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+body.public-page .selected-price {
+  margin: 6px 0;
+  color: #fff;
+  text-align: center;
+  font-size: 42px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -.04em;
+}
+
+body.public-page .immediate-access {
+  margin: 0 0 14px;
+  color: #22c55e;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+body.public-page .primary-btn,
+body.public-page .primary-button {
+  min-height: 59px;
+  border-radius: 999px;
+  background: #ff7a36;
+  color: #000;
+  font-size: 17px;
+  font-weight: 950;
+}
+
+body.public-page #step-account.checkout-step.active {
+  gap: 12px;
+}
+
+body.public-page #step-account .checkout-title {
+  margin-bottom: 0;
+  text-align: left;
+  font-size: 20px;
+}
+
+body.public-page .account-subtitle {
+  margin: 0;
+  color: #aaa;
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 650;
+}
+
+body.public-page .checkout-account {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  background: rgba(255,255,255,.06);
+  padding: 10px;
+}
+
+body.public-page .field-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+body.public-page .field-grid input {
+  min-height: 40px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 10px;
+  background: #111;
+  color: #fff;
+  padding: 0 12px;
+}
+
+body.public-page .field-grid input::placeholder {
+  color: #9ca3af;
+}
+
+body.public-page .account-selected-plan {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 14px;
+  background: #111;
+  padding: 12px 14px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+body.public-page .account-selected-plan strong {
+  color: #f9c19d;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  body.public-page .modal {
+    align-items: center;
+    padding: 6px;
+  }
+
+  body.public-page .checkout {
+    width: min(100%, 390px);
+    max-height: calc(100vh - 12px);
+    max-height: calc(100dvh - 12px);
+    border-radius: 16px;
+  }
+
+  body.public-page .checkout-close {
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    font-size: 20px;
+  }
+
+  body.public-page .checkout-banner {
+    height: 46px;
+  }
+
+  body.public-page .checkout-profile {
+    gap: 8px;
+    margin-top: -16px;
+    padding: 0 12px;
+  }
+
+  body.public-page .checkout-profile img {
+    width: 44px;
+    height: 44px;
+    border-width: 3px;
+  }
+
+  body.public-page .checkout-profile strong {
+    font-size: 13px;
+  }
+
+  body.public-page .checkout-profile > div {
+    margin-top: 8px;
+    border-radius: 10px;
+    padding: 4px 7px;
+  }
+
+  body.public-page .checkout-profile > div > div {
+    margin-top: 1px;
+    font-size: 10px;
+  }
+
+  body.public-page .checkout-body {
+    padding: 10px 12px 12px;
+  }
+
+  body.public-page .checkout-title {
+    margin: 0 0 8px;
+    font-size: 15px;
+  }
+
+  body.public-page .benefits {
+    gap: 4px;
+    margin: 8px 0 10px;
+  }
+
+  body.public-page .benefits li {
+    gap: 6px;
+    font-size: 11px;
+    line-height: 1.25;
+  }
+
+  body.public-page .checkout-plans {
+    gap: 5px;
+    margin: 0 0 8px;
+  }
+
+  body.public-page .checkout-plan {
+    min-height: 40px;
+    gap: 8px;
+    border-radius: 11px;
+    padding: 6px 9px;
+  }
+
+  body.public-page .checkout-plan-copy {
+    gap: 1px;
+  }
+
+  body.public-page .checkout-plan .plan-name,
+  body.public-page .checkout-plan .plan-price-wrap strong {
+    font-size: 12px;
+  }
+
+  body.public-page .checkout-plan .plan-price-wrap {
+    gap: 6px;
+    min-width: 118px;
+  }
+
+  body.public-page .checkout-plan .plan-discount,
+  body.public-page .checkout-plan .strike {
+    font-size: 9px;
+  }
+
+  body.public-page #selectedPlanCopy {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  body.public-page .selected-price {
+    margin: 2px 0;
+    font-size: 28px;
+    letter-spacing: 0;
+  }
+
+  body.public-page .immediate-access {
+    margin: 0 0 8px;
+    font-size: 11px;
+  }
+
+  body.public-page .primary-btn {
+    min-height: 42px;
+    padding: 8px 14px;
+    font-size: 15px;
+  }
+
+  body.public-page #step-account .checkout-title {
+    font-size: 16px;
+  }
+
+  body.public-page .account-subtitle,
+  body.public-page .account-selected-plan {
+    font-size: 12px;
+  }
+
+  body.public-page .checkout-account {
+    gap: 5px;
+    border-radius: 11px;
+    padding: 7px;
+  }
+
+  body.public-page .field-grid {
+    gap: 6px;
+  }
+
+  body.public-page .field-grid input {
+    min-height: 34px;
+    padding: 0 9px;
+    font-size: 12px;
+  }
+}

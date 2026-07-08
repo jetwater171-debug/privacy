@@ -194,7 +194,7 @@ function renderPlans() {
   selectedPlan = plans[0] || null;
   const markup = plans.map((plan, index) => `${index === 2 || plan.featured ? promotionMarkup() : ''}${planButton(plan, 'plan-button')}`).join('');
   $('#plans').innerHTML = markup;
-  $('#checkoutPlans').innerHTML = plans.map((plan) => planButton(plan, 'checkout-plan')).join('');
+  $('#checkoutPlans').innerHTML = plans.map((plan) => checkoutPlanButton(plan)).join('');
   $$('.plan-button').forEach((button) => button.addEventListener('click', () => openCheckout(button.dataset.planId)));
   $$('.checkout-plan').forEach((button) => button.addEventListener('click', () => selectPlan(button.dataset.planId)));
   selectPlan(selectedPlan?.id);
@@ -202,6 +202,22 @@ function renderPlans() {
 
 function planButton(plan, className) {
   return privacyPlanButton(plan, className);
+}
+
+function checkoutPlanButton(plan) {
+  const featured = plan.featured ? ' featured' : '';
+  const discountClass = plan.featured ? 'discount-featured' : 'discount-muted';
+  return `
+    <button class="checkout-plan${featured}" data-plan-id="${escapeHtml(plan.id)}" type="button">
+      <span class="checkout-plan-copy">
+        ${plan.featured ? '<span class="best-choice" aria-hidden="true">&#9733; MELHOR ESCOLHA</span>' : ''}
+        <strong class="plan-name">${escapeHtml(polishText(plan.name))}</strong>
+      </span>
+      <span class="plan-price plan-price-wrap">
+        ${plan.oldPrice || plan.discount ? `<span class="strike-stack">${plan.discount ? `<span class="plan-discount ${discountClass}">${escapeHtml(plan.discount)}</span>` : ''}${plan.oldPrice ? `<span class="strike">${brl(plan.oldPrice)}</span>` : ''}</span>` : ''}
+        <strong>${brl(plan.price)}</strong>
+      </span>
+    </button>`;
 }
 
 function privacyPlanButton(plan, className) {
@@ -246,10 +262,12 @@ function selectPlan(planId) {
   if (!plan) return;
   selectedPlan = plan;
   $$('.checkout-plan').forEach((button) => button.classList.toggle('active', button.dataset.planId === plan.id));
-  setText('#selectedPlanCopy', plan.durationDays > 0 ? `Tenha acesso por ${plan.name.toLowerCase()}` : 'Pacote vitalicio: acesso permanente');
+  setText('#selectedPlanCopy', plan.durationDays > 0 ? `Tenha apenas ${plan.name.toLowerCase()}` : 'Tenha acesso vitalício');
   setText('#selectedPlanPrice', brl(plan.price));
   setText('#chargePlanName', plan.name);
   setText('#chargePlanValue', brl(plan.price));
+  setText('#accountPlanName', plan.name);
+  setText('#accountPlanPrice', brl(plan.price));
 }
 
 function renderGallery() {
@@ -368,7 +386,7 @@ function customerPayload() {
     name: $('#customerName').value.trim(),
     email: $('#customerEmail').value.trim(),
     phone: $('#customerPhone').value.trim(),
-    document: $('#customerDocument').value.trim()
+    document: ''
   };
 }
 
@@ -413,7 +431,7 @@ async function generatePix() {
     navigator.clipboard?.writeText(data.pixCode).then(() => toast('Codigo PIX copiado.'));
     startPolling(data.id);
   } catch (error) {
-    showStep('plan');
+    showStep('account');
     toast(error.message || 'Erro ao gerar PIX.');
   }
 }
@@ -446,6 +464,7 @@ function bindUi() {
   $('#checkoutModal').addEventListener('click', (event) => {
     if (event.target.id === 'checkoutModal') closeCheckout();
   });
+  $('#continueCheckout').addEventListener('click', () => showStep('account'));
   $('#generatePix').addEventListener('click', generatePix);
   $('#copyPix').addEventListener('click', () => {
     const code = $('#pixCode').textContent.trim();
